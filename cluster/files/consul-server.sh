@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SHAREDDIR=/ops/
+FILESDIR=/ops
 
-FILESDIR=$SHAREDDIR/files
+$FILESDIR/setup.sh
 
 source $FILESDIR/net.sh
 set -e
