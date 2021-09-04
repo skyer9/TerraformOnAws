@@ -15,7 +15,7 @@ sudo wget https://github.com/skyer9/TerraformOnAws/raw/main/files/nomad.service
 
 sudo chmod +x /ops/setup.sh
 sudo chmod +x /ops/net.sh
-sudo chmod +x /ops/consul-server.sh
+sudo chmod +x /ops/nomad-server.sh
 
 sudo bash -c "/ops/nomad-server.sh \"${server_count}\" \"${retry_join}\""
 # rm -rf /ops/
