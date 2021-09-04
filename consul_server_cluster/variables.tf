@@ -34,12 +34,6 @@ variable "ami" {
   default     = "ami-0a0de518b1fc4524c"
 }
 
-variable "key_name" {
-  description = "The EC2 key pair to use for EC2 instance SSH access."
-  type        = string
-  default     = "aws_key"     # 내 키페어
-}
-
 variable "server_instance_type" {
   description = "The EC2 instance type to launch for Nomad servers."
   type        = string
@@ -86,12 +80,6 @@ variable "allowlist_ip" {
   description = "A list of IP address to grant access via the LBs."
   type        = list(string)
   default     = ["0.0.0.0/0"]
-}
-
-variable "my_ip" {
-  description = "A list of IP address to grant access via the LBs."
-  type        = list(string)
-  default     = ["183.101.XXX.XXX/32"]      # 내 아이피
 }
 
 variable "nomad_autoscaler_image" {
