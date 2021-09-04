@@ -25,8 +25,7 @@ resource "aws_iam_role" "role" {
             "Effect": "Allow",
             "Action": [
                 "ec2:DescribeInstances"
-            ],
-            "Resource": "*"
+            ]
         }
     ]
 }
