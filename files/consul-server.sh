@@ -20,7 +20,7 @@ RETRY_JOIN=$2
 
 sed -i "s/IP_ADDRESS/$IP_ADDRESS/g" $FILES_DIR/consul-server.hcl
 sed -i "s/SERVER_COUNT/$SERVER_COUNT/g" $FILES_DIR/consul-server.hcl
-sed -i "s/RETRY_JOIN/$RETRY_JOIN/g" $FILES_DIR/consul-server.hcl
+sed -i "s/RETRY_JOIN/$RETRY_JOIN/g" $FILES_DIR/consul.service
 sudo cp $FILES_DIR/consul-server.hcl $CONSUL_CONFIG_DIR/consul.hcl
 sudo cp $FILES_DIR/consul.service /etc/systemd/system/consul.service
 
