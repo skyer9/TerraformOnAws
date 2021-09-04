@@ -23,6 +23,9 @@ resource "aws_iam_role" "role" {
         },
         {
             "Effect": "Allow",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
             "Action": [
                 "ec2:DescribeInstances"
             ]
