@@ -8,7 +8,7 @@ resource "aws_instance" "nomad_client" {
   key_name               = var.key_name
   vpc_security_group_ids = [data.aws_security_group.primary.id]
   count                  = var.client_count
-  iam_instance_profile   = "consul_profile"
+  iam_instance_profile   = data.aws_iam_instance_profile.consul_profile.name
 
   tags = {
     Name           = "${var.stack_name}-nomad_client"
