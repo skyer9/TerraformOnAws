@@ -13,7 +13,8 @@ resource "aws_iam_role" "consul_role" {
             "Effect": "Allow",
             "Principal": {"Service": "ec2.amazonaws.com"},
             "Action": [
-                "ec2:DescribeInstances"
+                "ec2:DescribeInstances",
+                "sts:AssumeRole"
             ],
             "Resource": "*"
         }
