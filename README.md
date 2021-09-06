@@ -6,6 +6,42 @@ Terraform On Aws
 
 `AmazonEC2FullAccess` 권한을 부여한 IAM 계정을 생성합니다.
 
+정책에 `create_role` 정책을 아래의 내용으로 추가합니다.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1469200763880",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:TagRole",
+                "iam:GetRole",
+                "iam:ListRolePolicies",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListInstanceProfilesForRole",
+                "iam:DeleteRole",
+                "iam:CreateInstanceProfile",
+                "iam:GetInstanceProfile",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "iam:AddRoleToInstanceProfile",
+                "iam:PassRole",
+                "iam:PutRolePolicy",
+                "iam:GetRolePolicy",
+                "iam:DeleteRolePolicy"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+`create_role` 권한을 부여합니다.
+
 aws-cli 를 설정합니다.
 
 ```bash
@@ -58,46 +94,6 @@ ls -al .ssh/aws_key*
 -rw------- 1 skyer9 skyer9 1823  8월 28 20:34 .ssh/aws_key
 -rw-r--r-- 1 skyer9 skyer9  397  8월 28 20:34 .ssh/aws_key.pub
 ```
-
-## AWS 계정생성
-
-AWS 계정을 생성하고 `AmazonEC2FullAccess` 권한을 부여합니다.
-
-정책에 `create_role` 정책을 아래의 내용으로 추가합니다.
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Stmt1469200763880",
-            "Action": [
-                "iam:AttachRolePolicy",
-                "iam:CreateRole",
-                "iam:TagRole",
-                "iam:GetRole",
-                "iam:ListRolePolicies",
-                "iam:ListAttachedRolePolicies",
-                "iam:ListInstanceProfilesForRole",
-                "iam:DeleteRole",
-                "iam:CreateInstanceProfile",
-                "iam:GetInstanceProfile",
-                "iam:RemoveRoleFromInstanceProfile",
-                "iam:DeleteInstanceProfile",
-                "iam:AddRoleToInstanceProfile",
-                "iam:PassRole",
-                "iam:PutRolePolicy",
-                "iam:GetRolePolicy",
-                "iam:DeleteRolePolicy"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-`create_role` 권한을 부여합니다.
 
 ## 보안 그룹 생성
 
