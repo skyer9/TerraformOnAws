@@ -11,7 +11,8 @@ resource "aws_instance" "nomad_server" {
   iam_instance_profile   = aws_iam_instance_profile.nomad_server.name
 
   tags = {
-    Name           = "${var.stack_name}-nomad_server"
+    Name           = "${var.stack_name}-nomad_server-${count.index + 1}"
+    ConsulAutoJoin = "auto-join"
     OwnerName      = var.owner_name
     OwnerEmail     = var.owner_email
   }
