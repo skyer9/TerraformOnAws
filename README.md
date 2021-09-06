@@ -43,3 +43,31 @@ terraform apply
 
 # terraform destroy
 ```
+
+## Nomad Server Cluster 생성
+
+```bash
+cd ../nomad_server_cluster
+
+terraform init
+terraform validate
+terraform plan
+
+terraform apply
+
+# terraform destroy
+```
+
+## Nomad Client Cluster 생성
+
+```bash
+cd ../nomad_client_cluster
+
+terraform init
+terraform validate
+terraform plan
+
+terraform apply
+
+# terraform destroy
+```
