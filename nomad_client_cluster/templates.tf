@@ -11,7 +11,3 @@ data "template_file" "user_data_nomad_client" {
 data "aws_security_group" "primary" {
   name = "${var.stack_name}-primary"
 }
-
-data "aws_iam_instance_profile" "consul_profile" {
-  name = "${var.stack_name}-consul_profile"
-}

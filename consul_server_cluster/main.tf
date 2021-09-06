@@ -8,7 +8,7 @@ resource "aws_instance" "consul_server" {
   key_name               = var.key_name
   vpc_security_group_ids = [data.aws_security_group.primary.id]
   count                  = var.consul_server_count
-  iam_instance_profile   = data.aws_iam_instance_profile.consul_profile.name
+  iam_instance_profile   = aws_iam_instance_profile.consul_server.name
 
   tags = {
     Name           = "${var.stack_name}-consul_server"
