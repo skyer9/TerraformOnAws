@@ -43,7 +43,7 @@ variable "server_instance_type" {
 variable "consul_server_count" {
   description = "The number of Consul servers to run."
   type        = number
-  default     = 1
+  # default     = 1
 }
 
 variable "server_count" {
