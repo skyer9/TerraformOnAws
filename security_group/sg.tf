@@ -14,7 +14,8 @@ resource "aws_security_group" "consul_lb" {
     cidr_blocks = var.my_ip
     security_groups = [
       aws_security_group.server_lb.id,
-      aws_security_group.client_lb.id
+      aws_security_group.client_lb.id,
+      aws_security_group.consul_lb.id
     ]
   }
 
@@ -42,7 +43,11 @@ resource "aws_security_group" "server_lb" {
     from_port   = 4646
     to_port     = 4646
     protocol    = "tcp"
-    cidr_blocks = var.allowlist_ip
+    cidr_blocks = var.my_ip
+    security_groups = [
+      aws_security_group.server_lb.id,
+      aws_security_group.client_lb.id
+    ]
   }
 
   # Consul HTTP API & UI.
@@ -50,7 +55,12 @@ resource "aws_security_group" "server_lb" {
     from_port   = 8500
     to_port     = 8500
     protocol    = "tcp"
-    cidr_blocks = var.allowlist_ip
+    cidr_blocks = var.my_ip
+    security_groups = [
+      aws_security_group.server_lb.id,
+      aws_security_group.client_lb.id,
+      aws_security_group.consul_lb.id
+    ]
   }
 
   egress {
