@@ -13,6 +13,12 @@ resource "aws_instance" "consul_server" {
   provisioner "file" {
     source      = "${path.module}/../tls/consul/consul-agent-ca.pem"
     destination = "/consul-agent-ca.pem"
+
+    connection {
+      type     = "ssh"
+      user     = "ec2-user"
+      private_key = file("/home/skyer9/.ssh/${var.key_name}")
+    }
   }
 
   provisioner "file" {
