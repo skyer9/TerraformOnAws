@@ -95,6 +95,14 @@ ls -al .ssh/aws_key*
 -rw-r--r-- 1 skyer9 skyer9  397  8월 28 20:34 .ssh/aws_key.pub
 ```
 
+```bash
+mkdir -p tls/consul
+cd tls/consul/
+consul tls ca create
+consul tls cert create -server
+consul tls cert create -client
+```
+
 ## 보안 그룹 생성
 
 ```bash
