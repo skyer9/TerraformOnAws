@@ -12,7 +12,6 @@ resource "aws_security_group" "consul_lb" {
     to_port     = 8600
     protocol    = "tcp"
     cidr_blocks = var.my_ip
-    security_groups = [aws_security_group.consul_lb.id]
   }
 
   ingress {
@@ -73,6 +72,7 @@ resource "aws_security_group" "server_lb" {
     to_port     = 8600
     protocol    = "tcp"
     cidr_blocks = var.my_ip
+    security_groups = [aws_security_group.consul_lb.id]
   }
 
   egress {
