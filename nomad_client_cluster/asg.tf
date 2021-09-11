@@ -10,9 +10,13 @@ resource "aws_launch_template" "nomad_client" {
     name = aws_iam_instance_profile.nomad_client.name
   }
 
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.web.public_ip} >> /path/to/save"
+  }
+
   connection {
     type        = "ssh"
-    # host        = self.public_ip
+    host        = launch_template_id.public_ip
     user        = "ec2-user"
     private_key = file("~/.ssh/${var.key_name}")
   }
