@@ -8,14 +8,6 @@ data "template_file" "user_data_nomad_server" {
   }
 }
 
-data "aws_security_group" "primary" {
-  name = "${var.stack_name}-primary"
-}
-
 data "aws_security_group" "server_lb" {
   name = "${var.stack_name}-server-lb"
-}
-
-data "aws_security_group" "client_lb" {
-  name = "${var.stack_name}-client-lb"
 }

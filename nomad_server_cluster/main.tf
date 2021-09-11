@@ -6,7 +6,7 @@ resource "aws_instance" "nomad_server" {
   ami                    = var.ami
   instance_type          = var.server_instance_type
   key_name               = var.key_name
-  vpc_security_group_ids = [data.aws_security_group.primary.id]
+  vpc_security_group_ids = [data.aws_security_group.server_lb.id]
   count                  = var.server_count
   iam_instance_profile   = aws_iam_instance_profile.nomad_server.name
 
