@@ -12,6 +12,7 @@ resource "aws_security_group" "consul_lb" {
     to_port     = 8600
     protocol    = "tcp"
     cidr_blocks = var.my_ip
+    security_groups = [aws_security_group.consul_lb.id]
   }
 
   ingress {
@@ -45,15 +46,6 @@ resource "aws_security_group_rule" "consul_lb_client_ingress" {
   protocol    = "tcp"
   security_group_id = aws_security_group.consul_lb.id
   source_security_group_id = aws_security_group.client_lb.id
-}
-
-resource "aws_security_group_rule" "consul_lb_consul_ingress" {
-  type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
-  protocol    = "tcp"
-  security_group_id = aws_security_group.consul_lb.id
-  source_security_group_id = aws_security_group.consul_lb.id
 }
 
 resource "aws_security_group" "server_lb" {
