@@ -187,6 +187,33 @@ resource "aws_security_group" "client_lb" {
   }
 }
 
+resource "aws_security_group_rule" "client_lb_consul_server_ingress" {
+  type        = "ingress"
+  from_port   = 8300
+  to_port     = 8600
+  protocol    = "tcp"
+  security_group_id = aws_security_group.client_lb.id
+  source_security_group_id = aws_security_group.server_lb.id
+}
+
+resource "aws_security_group_rule" "client_lb_consul_client_ingress" {
+  type        = "ingress"
+  from_port   = 8300
+  to_port     = 8600
+  protocol    = "tcp"
+  security_group_id = aws_security_group.client_lb.id
+  source_security_group_id = aws_security_group.client_lb.id
+}
+
+resource "aws_security_group_rule" "client_lb_consul_consul_ingress" {
+  type        = "ingress"
+  from_port   = 8300
+  to_port     = 8600
+  protocol    = "tcp"
+  security_group_id = aws_security_group.client_lb.id
+  source_security_group_id = aws_security_group.consul_lb.id
+}
+
 resource "aws_security_group" "primary" {
   name   = "${var.stack_name}-primary"
   vpc_id = data.aws_vpc.default.id
