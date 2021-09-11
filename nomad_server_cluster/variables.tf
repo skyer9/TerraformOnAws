@@ -49,7 +49,7 @@ variable "consul_server_count" {
 variable "server_count" {
   description = "The number of Nomad servers to run."
   type        = number
-  default     = 1
+  # default     = 1
 }
 
 variable "client_instance_type" {
