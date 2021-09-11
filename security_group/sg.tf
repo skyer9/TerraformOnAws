@@ -2,6 +2,37 @@ data "aws_vpc" "default" {
   default = true
 }
 
+resource "aws_security_group" "consul_lb" {
+  name   = "${var.stack_name}-consul-lb"
+  vpc_id = data.aws_vpc.default.id
+
+  # Consul HTTP API & UI.
+  ingress {
+    from_port   = 8500
+    to_port     = 8500
+    protocol    = "tcp"
+    cidr_blocks = var.my_ip
+    security_groups = [
+      aws_security_group.server_lb.id,
+      aws_security_group.client_lb.id
+    ]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.my_ip
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_security_group" "server_lb" {
   name   = "${var.stack_name}-server-lb"
   vpc_id = data.aws_vpc.default.id

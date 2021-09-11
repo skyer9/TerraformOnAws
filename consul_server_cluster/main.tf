@@ -6,7 +6,7 @@ resource "aws_instance" "consul_server" {
   ami                    = var.ami
   instance_type          = var.server_instance_type
   key_name               = var.key_name
-  vpc_security_group_ids = [data.aws_security_group.primary.id]
+  vpc_security_group_ids = [data.aws_security_group.consul_lb.id]
   count                  = var.consul_server_count
   iam_instance_profile   = aws_iam_instance_profile.consul_server.name
 
