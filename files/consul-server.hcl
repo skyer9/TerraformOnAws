@@ -6,7 +6,9 @@ data_dir = "/opt/consul/data"
 log_level = "INFO"
 
 server = true
-ui = true
+ui_config {
+  enabled = true
+}
 
 service {
   name = "consul"
