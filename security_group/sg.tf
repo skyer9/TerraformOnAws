@@ -179,14 +179,6 @@ resource "aws_security_group" "client_lb" {
     cidr_blocks = var.my_ip
   }
 
-  # Nomad dynamic port allocation range.
-  ingress {
-    from_port       = 20000
-    to_port         = 32000
-    protocol        = "tcp"
-    security_groups = [aws_security_group.client_lb.id]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
