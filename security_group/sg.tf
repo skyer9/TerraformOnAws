@@ -60,6 +60,13 @@ resource "aws_security_group" "server_lb" {
   name   = "${var.stack_name}-server-lb"
   vpc_id = data.aws_vpc.default.id
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.my_ip
+  }
+
   # Nomad HTTP API & UI.
   ingress {
     from_port   = 4646
