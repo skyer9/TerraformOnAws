@@ -29,33 +29,6 @@ resource "aws_security_group" "consul_lb" {
   }
 }
 
-resource "aws_security_group_rule" "consul_lb_consul_ingress" {
-  type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
-  protocol    = "tcp"
-  security_group_id = aws_security_group.consul_lb.id
-  source_security_group_id = aws_security_group.consul_lb.id
-}
-
-resource "aws_security_group_rule" "consul_lb_server_ingress" {
-  type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
-  protocol    = "tcp"
-  security_group_id = aws_security_group.consul_lb.id
-  source_security_group_id = aws_security_group.server_lb.id
-}
-
-resource "aws_security_group_rule" "consul_lb_client_ingress" {
-  type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
-  protocol    = "tcp"
-  security_group_id = aws_security_group.consul_lb.id
-  source_security_group_id = aws_security_group.client_lb.id
-}
-
 resource "aws_security_group" "server_lb" {
   name   = "${var.stack_name}-server-lb"
   vpc_id = data.aws_vpc.default.id
@@ -89,60 +62,6 @@ resource "aws_security_group" "server_lb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-resource "aws_security_group_rule" "server_lb_consul_consul_ingress" {
-  type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
-  protocol    = "tcp"
-  security_group_id = aws_security_group.server_lb.id
-  source_security_group_id = aws_security_group.consul_lb.id
-}
-
-resource "aws_security_group_rule" "server_lb_consul_server_ingress" {
-  type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
-  protocol    = "tcp"
-  security_group_id = aws_security_group.server_lb.id
-  source_security_group_id = aws_security_group.server_lb.id
-}
-
-resource "aws_security_group_rule" "server_lb_consul_client_ingress" {
-  type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
-  protocol    = "tcp"
-  security_group_id = aws_security_group.server_lb.id
-  source_security_group_id = aws_security_group.client_lb.id
-}
-
-resource "aws_security_group_rule" "server_lb_nomad_server_ingress" {
-  type        = "ingress"
-  from_port   = 4646
-  to_port     = 4648
-  protocol    = "tcp"
-  security_group_id = aws_security_group.server_lb.id
-  source_security_group_id = aws_security_group.server_lb.id
-}
-
-resource "aws_security_group_rule" "server_lb_nomad_client_ingress" {
-  type        = "ingress"
-  from_port   = 4646
-  to_port     = 4648
-  protocol    = "tcp"
-  security_group_id = aws_security_group.server_lb.id
-  source_security_group_id = aws_security_group.client_lb.id
-}
-
-resource "aws_security_group_rule" "server_lb_consul_ingress" {
-  type        = "ingress"
-  from_port   = 4646
-  to_port     = 4648
-  protocol    = "tcp"
-  security_group_id = aws_security_group.server_lb.id
-  source_security_group_id = aws_security_group.consul_lb.id
 }
 
 resource "aws_security_group" "client_lb" {
@@ -212,38 +131,29 @@ resource "aws_security_group" "client_lb" {
   }
 }
 
-resource "aws_security_group_rule" "client_lb_consul_consul_ingress" {
+resource "aws_security_group_rule" "consul_to_consul_ingress" {
   type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
+  from_port   = -1
+  to_port     = -1
   protocol    = "tcp"
-  security_group_id = aws_security_group.client_lb.id
+  security_group_id = aws_security_group.consul_lb.id
   source_security_group_id = aws_security_group.consul_lb.id
 }
 
-resource "aws_security_group_rule" "client_lb_consul_server_ingress" {
+resource "aws_security_group_rule" "server_to_consul_ingress" {
   type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
+  from_port   = -1
+  to_port     = -1
   protocol    = "tcp"
-  security_group_id = aws_security_group.client_lb.id
+  security_group_id = aws_security_group.consul_lb.id
   source_security_group_id = aws_security_group.server_lb.id
 }
 
-resource "aws_security_group_rule" "client_lb_consul_client_ingress" {
+resource "aws_security_group_rule" "client_to_consul_ingress" {
   type        = "ingress"
-  from_port   = 8300
-  to_port     = 8600
+  from_port   = -1
+  to_port     = -1
   protocol    = "tcp"
-  security_group_id = aws_security_group.client_lb.id
+  security_group_id = aws_security_group.consul_lb.id
   source_security_group_id = aws_security_group.client_lb.id
-}
-
-resource "aws_security_group_rule" "client_lb_consul_ingress" {
-  type        = "ingress"
-  from_port   = 4646
-  to_port     = 4648
-  protocol    = "tcp"
-  security_group_id = aws_security_group.client_lb.id
-  source_security_group_id = aws_security_group.consul_lb.id
 }
