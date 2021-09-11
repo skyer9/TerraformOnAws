@@ -136,6 +136,15 @@ resource "aws_security_group_rule" "server_lb_nomad_client_ingress" {
   source_security_group_id = aws_security_group.client_lb.id
 }
 
+resource "aws_security_group_rule" "server_lb_consul_ingress" {
+  type        = "ingress"
+  from_port   = 4646
+  to_port     = 4648
+  protocol    = "tcp"
+  security_group_id = aws_security_group.server_lb.id
+  source_security_group_id = aws_security_group.consul_lb.id
+}
+
 resource "aws_security_group" "client_lb" {
   name   = "${var.stack_name}-client-lb"
   vpc_id = data.aws_vpc.default.id
@@ -228,4 +237,13 @@ resource "aws_security_group_rule" "client_lb_consul_client_ingress" {
   protocol    = "tcp"
   security_group_id = aws_security_group.client_lb.id
   source_security_group_id = aws_security_group.client_lb.id
+}
+
+resource "aws_security_group_rule" "client_lb_consul_ingress" {
+  type        = "ingress"
+  from_port   = 4646
+  to_port     = 4648
+  protocol    = "tcp"
+  security_group_id = aws_security_group.client_lb.id
+  source_security_group_id = aws_security_group.consul_lb.id
 }
