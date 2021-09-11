@@ -3,7 +3,7 @@ resource "aws_launch_template" "nomad_client" {
   image_id               = var.ami
   instance_type          = var.client_instance_type
   key_name               = var.key_name
-  vpc_security_group_ids = [data.aws_security_group.primary.id]
+  vpc_security_group_ids = [data.aws_security_group.client_lb.id]
   user_data              = base64encode(data.template_file.user_data_nomad_client.rendered)
 
   iam_instance_profile {
@@ -12,7 +12,7 @@ resource "aws_launch_template" "nomad_client" {
 
   connection {
     type        = "ssh"
-    host        = self.public_ip
+    # host        = self.public_ip
     user        = "ec2-user"
     private_key = file("~/.ssh/${var.key_name}")
   }
