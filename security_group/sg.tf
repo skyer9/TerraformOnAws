@@ -18,7 +18,7 @@ resource "aws_security_group" "consul_lb" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.my_ip
+    cidr_blocks = var.my_notebook_ip
   }
 
   egress {
@@ -64,7 +64,7 @@ resource "aws_security_group" "server_lb" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.my_ip
+    cidr_blocks = var.my_notebook_ip
   }
 
   # Nomad HTTP API & UI.
@@ -140,6 +140,13 @@ resource "aws_security_group" "client_lb" {
   name   = "${var.stack_name}-client-lb"
   vpc_id = data.aws_vpc.default.id
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.my_notebook_ip
+  }
+
   # Webapp HTTP.
   ingress {
     from_port   = 80
@@ -153,7 +160,7 @@ resource "aws_security_group" "client_lb" {
     from_port   = 3000
     to_port     = 3000
     protocol    = "tcp"
-    cidr_blocks = var.allowlist_ip
+    cidr_blocks = var.my_ip
   }
 
   # Prometheus dashboard.
@@ -161,7 +168,7 @@ resource "aws_security_group" "client_lb" {
     from_port   = 9090
     to_port     = 9090
     protocol    = "tcp"
-    cidr_blocks = var.allowlist_ip
+    cidr_blocks = var.my_ip
   }
 
   # haproxy
@@ -169,7 +176,15 @@ resource "aws_security_group" "client_lb" {
     from_port   = 4936
     to_port     = 4936
     protocol    = "tcp"
-    cidr_blocks = var.allowlist_ip
+    cidr_blocks = var.my_ip
+  }
+
+  # Nomad dynamic port allocation range.
+  ingress {
+    from_port       = 20000
+    to_port         = 32000
+    protocol        = "tcp"
+    security_groups = [aws_security_group.client_lb.id]
   }
 
   egress {
