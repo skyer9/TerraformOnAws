@@ -153,7 +153,6 @@ resource "aws_security_group" "client_lb" {
     to_port     = 4648
     protocol    = "tcp"
     cidr_blocks = var.my_ip
-    security_groups = [aws_security_group.server_lb.id]
   }
 
   # Consul HTTP API & UI.
@@ -162,10 +161,6 @@ resource "aws_security_group" "client_lb" {
     to_port     = 8600
     protocol    = "tcp"
     cidr_blocks = var.my_ip
-    security_groups = [
-      aws_security_group.consul_lb.id,
-      aws_security_group.server_lb.id
-    ]
   }
 
   # Webapp HTTP.
@@ -206,4 +201,31 @@ resource "aws_security_group" "client_lb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_security_group_rule" "client_lb_consul_consul_ingress" {
+  type        = "ingress"
+  from_port   = 8300
+  to_port     = 8600
+  protocol    = "tcp"
+  security_group_id = aws_security_group.client_lb.id
+  source_security_group_id = aws_security_group.consul_lb.id
+}
+
+resource "aws_security_group_rule" "client_lb_consul_server_ingress" {
+  type        = "ingress"
+  from_port   = 8300
+  to_port     = 8600
+  protocol    = "tcp"
+  security_group_id = aws_security_group.client_lb.id
+  source_security_group_id = aws_security_group.server_lb.id
+}
+
+resource "aws_security_group_rule" "client_lb_consul_client_ingress" {
+  type        = "ingress"
+  from_port   = 8300
+  to_port     = 8600
+  protocol    = "tcp"
+  security_group_id = aws_security_group.client_lb.id
+  source_security_group_id = aws_security_group.client_lb.id
 }
