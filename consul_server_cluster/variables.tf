@@ -43,10 +43,8 @@ variable "consul_server_instance_type" {
 variable "server_instance_type" {
   description = "The EC2 instance type to launch for Nomad servers."
   type        = string
-  default     = "t3a.small"
+  default     = "t3a.micro"
 }
-
-
 
 variable "consul_server_count" {
   description = "The number of Consul servers to run."

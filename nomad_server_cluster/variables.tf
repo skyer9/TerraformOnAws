@@ -34,10 +34,16 @@ variable "ami" {
   default     = "ami-0a0de518b1fc4524c"
 }
 
+variable "consul_server_instance_type" {
+  description = "The EC2 instance type to launch for Consul servers."
+  type        = string
+  default     = "t3a.micro"
+}
+
 variable "server_instance_type" {
   description = "The EC2 instance type to launch for Nomad servers."
   type        = string
-  default     = "t3a.small"
+  default     = "t3a.micro"
 }
 
 variable "consul_server_count" {
