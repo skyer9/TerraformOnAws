@@ -19,17 +19,17 @@ resource "aws_instance" "consul_server" {
 
   provisioner "file" {
     source      = "${path.module}/../tls/consul/consul-agent-ca.pem"
-    destination = "/consul-agent-ca.pem"
+    destination = "~/consul-agent-ca.pem"
   }
 
   provisioner "file" {
     source      = "${path.module}/../tls/consul/dc1-server-consul-0.pem"
-    destination = "/dc1-server-consul-0.pem"
+    destination = "~/dc1-server-consul-0.pem"
   }
 
   provisioner "file" {
     source      = "${path.module}/../tls/consul/dc1-server-consul-0-key.pem"
-    destination = "/dc1-server-consul-0-key.pem"
+    destination = "~/dc1-server-consul-0-key.pem"
   }
 
   tags = {
