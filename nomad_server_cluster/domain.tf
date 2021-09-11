@@ -4,7 +4,7 @@ data "aws_route53_zone" "skyer9_pe_kr_zone" {
 
 resource "aws_route53_record" "nomad_server" {
   zone_id = data.aws_route53_zone.skyer9_pe_kr_zone.zone_id
-  name    = "skyer9.pe.kr"
+  name    = "nomad_server.skyer9.pe.kr"
   type    = "A"
 
   alias {
