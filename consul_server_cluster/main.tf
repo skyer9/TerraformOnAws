@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "consul_server" {
   ami                    = var.ami
-  instance_type          = var.server_instance_type
+  instance_type          = var.consul_server_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [data.aws_security_group.consul_lb.id]
   count                  = var.consul_server_count
