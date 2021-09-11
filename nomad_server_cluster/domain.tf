@@ -1,9 +1,9 @@
-resource "aws_route53_zone" "skyer9_pe_kr_zone" {
+data "aws_route53_zone" "skyer9_pe_kr_zone" {
   name = "skyer9.pe.kr"
 }
 
 resource "aws_route53_record" "nomad_server" {
-  zone_id = aws_route53_zone.skyer9_pe_kr_zone.zone_id
+  zone_id = data.aws_route53_zone.skyer9_pe_kr_zone.zone_id
   name    = "skyer9.pe.kr"
   type    = "A"
 
