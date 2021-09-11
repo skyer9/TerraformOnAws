@@ -16,7 +16,7 @@ resource "aws_instance" "consul_server" {
 
     connection {
       type     = "ssh"
-      host     = aws_instance.consul_server.public_ip
+      host     = aws_instance.consul_server[*].public_ip
       user     = "ec2-user"
       private_key = file(var.key_name)
     }
