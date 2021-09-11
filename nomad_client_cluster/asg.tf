@@ -13,7 +13,7 @@ resource "aws_launch_template" "nomad_client" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name           = "${var.stack_name}-client"
+      Name           = "${var.stack_name}-nomad_client"
       ConsulAutoJoin = "auto-join"
     }
   }

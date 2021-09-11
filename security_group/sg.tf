@@ -147,6 +147,14 @@ resource "aws_security_group" "client_lb" {
     cidr_blocks = var.my_notebook_ip
   }
 
+  # Nomad HTTP API & UI.
+  ingress {
+    from_port   = 4646
+    to_port     = 4648
+    protocol    = "tcp"
+    cidr_blocks = var.my_ip
+  }
+
   # Webapp HTTP.
   ingress {
     from_port   = 80
