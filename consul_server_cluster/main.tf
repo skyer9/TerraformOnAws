@@ -25,11 +25,25 @@ resource "aws_instance" "consul_server" {
   provisioner "file" {
     source      = "${path.module}/../tls/consul/dc1-server-consul-0.pem"
     destination = "/dc1-server-consul-0.pem"
+
+    connection {
+      type     = "ssh"
+      host     = aws_instance.consul_server[*].public_ip
+      user     = "ec2-user"
+      private_key = file(var.key_name)
+    }
   }
 
   provisioner "file" {
     source      = "${path.module}/../tls/consul/dc1-server-consul-0-key.pem"
     destination = "/dc1-server-consul-0-key.pem"
+
+    connection {
+      type     = "ssh"
+      host     = aws_instance.consul_server[*].public_ip
+      user     = "ec2-user"
+      private_key = file(var.key_name)
+    }
   }
 
   tags = {
