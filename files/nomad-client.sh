@@ -34,3 +34,9 @@ sudo systemctl enable consul
 sudo systemctl start consul.service
 sudo systemctl enable nomad
 sudo systemctl start nomad.service
+
+# Docker
+
+sudo yum install docker -y
+sudo systemctl enable docker.service
+sudo service docker start
