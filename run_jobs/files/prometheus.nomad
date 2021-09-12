@@ -34,20 +34,26 @@ job "prometheus" {
 global:
   scrape_interval:     1s
   evaluation_interval: 1s
+
 scrape_configs:
+
   - job_name: nomad
+
     scrape_interval: 10s
     metrics_path: /v1/metrics
     params:
       format: ['prometheus']
     consul_sd_configs:
+
     - server: '{{ env "attr.unique.network.ip-address" }}:8500'
       services: ['nomad','nomad-client']
     relabel_configs:
       - source_labels: ['__meta_consul_tags']
         regex: .*,http,.*
         action: keep
+
   - job_name: traefik
+
     metrics_path: /metrics
     consul_sd_configs:
     - server: '{{ env "attr.unique.network.ip-address" }}:8500'

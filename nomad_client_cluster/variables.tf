@@ -25,7 +25,7 @@ variable "region" {
 variable "availability_zones" {
   description = "The AWS region AZs to deploy into."
   type        = list(string)
-  default     = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"]
+  default     = ["ap-northeast-2a", "ap-northeast-2c"]    # , "ap-northeast-2b"
 }
 
 variable "ami" {
