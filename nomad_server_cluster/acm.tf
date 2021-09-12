@@ -1,14 +1,12 @@
 resource "aws_acm_certificate" "cert_nomad_server_skyer9_pe_kr" {
-  domain_name       = "nomad-server.skyer9.pe.kr"
+  domain_name       = "*.skyer9.pe.kr"
   validation_method = "DNS"
 
   tags = {
-    Environment = "nomad-server.skyer9.pe.kr"
+    Environment = "*.skyer9.pe.kr"
   }
 
   lifecycle {
     create_before_destroy = true
   }
-
-  depends_on = [ aws_route53_record.nomad_server ]
 }
