@@ -1,9 +1,9 @@
-resource "aws_acm_certificate" "cert_skyer9_pe_kr" {
-  domain_name       = "*.skyer9.pe.kr"
+resource "aws_acm_certificate" "cert_nomad_server_skyer9_pe_kr" {
+  domain_name       = "nomad_server.skyer9.pe.kr"
   validation_method = "DNS"
 
   tags = {
-    Environment = "skyer9.pe.kr"
+    Environment = "nomad_server.skyer9.pe.kr"
   }
 
   lifecycle {
