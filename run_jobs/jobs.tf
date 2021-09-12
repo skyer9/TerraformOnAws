@@ -7,12 +7,17 @@ resource "null_resource" "wait_for_nomad_api" {
   }
 }
 
-resource "nomad_job" "prometheus" {
+resource "nomad_job" "hello_world" {
   depends_on = [null_resource.wait_for_nomad_api]
-  jobspec    = file("${path.module}/files/prometheus.nomad")
+  jobspec    = file("${path.module}/files/hello_world.nomad")
 }
 
-resource "nomad_job" "grafana" {
-  depends_on = [null_resource.wait_for_nomad_api]
-  jobspec    = file("${path.module}/files/grafana.nomad")
-}
+//resource "nomad_job" "prometheus" {
+//  depends_on = [null_resource.wait_for_nomad_api]
+//  jobspec    = file("${path.module}/files/prometheus.nomad")
+//}
+
+//resource "nomad_job" "grafana" {
+//  depends_on = [null_resource.wait_for_nomad_api]
+//  jobspec    = file("${path.module}/files/grafana.nomad")
+//}
