@@ -26,7 +26,7 @@ job "hello_world" {
       }
 
       service {
-        name = "hello_world"
+        name = "hello-world"
         port = "http"
 
         check {
