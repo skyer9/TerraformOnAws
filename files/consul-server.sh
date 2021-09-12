@@ -12,7 +12,7 @@ CONSUL_CONFIG_DIR=/etc/consul.d
 # Wait for network
 sleep 15
 
-IP_ADDRESS=$(net_getDefaultRouteAddress)
+IP_ADDRESS=$(GetPublicIP)
 SERVER_COUNT=$1
 RETRY_JOIN=$2
 
