@@ -16,7 +16,6 @@ job "hello_world" {
         ports = ["http"]
 
         args = [
-          "--server.port=${NOMAD_PORT_http}"
         ]
       }
 
