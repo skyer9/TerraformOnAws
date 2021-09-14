@@ -5,7 +5,7 @@ job "hello_world" {
     count = 1
 
     network {
-      port "http" {}
+      port "http" { to = 8080 }
     }
 
     task "hello_world" {
@@ -14,9 +14,6 @@ job "hello_world" {
       config {
         image = "gazgeek/springboot-helloworld"
         ports = ["http"]
-
-        args = [
-        ]
       }
 
       resources {
