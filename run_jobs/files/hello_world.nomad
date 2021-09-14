@@ -18,7 +18,7 @@ job "hello_world" {
 
       resources {
         cpu    = 1000
-        memory = 1280
+        memory = 1563
       }
 
       service {
