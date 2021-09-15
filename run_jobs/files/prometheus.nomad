@@ -38,19 +38,16 @@ global:
 scrape_configs:
 
   - job_name: nomad
-
-    scrape_interval: 10s
     metrics_path: /v1/metrics
     params:
       format: ['prometheus']
-    consul_sd_configs:
+    static_configs:
+    - targets: ['nb.skyer9.pe.kr:4646']
 
-    - server: '{{ env "attr.unique.network.ip-address" }}:8500'
-      services: ['nomad','nomad-client']
-    relabel_configs:
-      - source_labels: ['__meta_consul_tags']
-        regex: .*,http,.*
-        action: keep
+  - job_name: hello_world
+    metrics_path: /actuator/prometheus
+    static_configs:
+    - targets: ['nb.skyer9.pe.kr:8080']
 
   - job_name: traefik
 

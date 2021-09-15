@@ -12,7 +12,7 @@ job "hello_world" {
       driver = "docker"
 
       config {
-        image = "gazgeek/springboot-helloworld"
+        image = "garystafford/hello-world"
         ports = ["http"]
       }
 

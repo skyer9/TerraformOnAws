@@ -72,7 +72,7 @@ frontend grafana_ui_front
 
 backend http_back
    balance roundrobin
-   server-template webapp 20 _helloservice._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+   server-template webapp 20 _hello-world._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 backend prometheus_ui_back
    balance roundrobin
