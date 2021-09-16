@@ -8,6 +8,11 @@ job "jenkins" {
       port "jenkins_ui" { to = 8080 }
     }
 
+    volume "jenkins_home" {
+      type   = "host"
+      source = "jenkins_home"
+    }
+
     task "jenkins" {
       driver = "docker"
 
@@ -16,10 +21,14 @@ job "jenkins" {
         ports = ["jenkins_ui"]
 
         volumes = [
-          "/docker/jenkins:/var/jenkins_home",
           # Docker Out of Docker
           "/var/run/docker.sock:/var/run/docker.sock"
         ]
+      }
+
+      volume_mount {
+        volume      = "jenkins_home"
+        destination = "/var/jenkins_home"
       }
 
       resources {
