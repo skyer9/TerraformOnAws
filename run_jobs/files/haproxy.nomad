@@ -21,6 +21,10 @@ job "haproxy" {
         static = 4936
       }
 
+      port "jenkins_ui" {
+        static = 8000
+      }
+
       port "haproxy_exporter" {}
     }
 
@@ -70,6 +74,10 @@ frontend grafana_ui_front
    bind *:{{ env "NOMAD_PORT_grafana_ui" }}
    default_backend grafana_ui_back
 
+frontend jenkins_ui_front
+   bind *:{{ env "NOMAD_PORT_jenkins_ui" }}
+   default_backend jenkins_ui_back
+
 backend http_back
    balance roundrobin
    server-template webapp 20 _hello-world._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
@@ -81,6 +89,10 @@ backend prometheus_ui_back
 backend grafana_ui_back
    balance roundrobin
    server-template grafana 5 _grafana._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
+backend jenkins_ui_back
+   balance roundrobin
+   server-template jenkins_ui 5 _jenkins._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 resolvers consul
    nameserver consul {{ env "attr.unique.network.ip-address" }}:8600
