@@ -6,6 +6,14 @@ client {
   enabled = true
 }
 
+plugin "docker" {
+  config {
+    volumes {
+      enabled = true
+    }
+  }
+}
+
 telemetry {
   publish_allocation_metrics = true
   publish_node_metrics       = true

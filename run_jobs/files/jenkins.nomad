@@ -14,6 +14,12 @@ job "jenkins" {
       config {
         image = "jenkins/jenkins:lts"
         ports = ["jenkins_ui"]
+
+        volumes = [
+          "/docker/jenkins:/var/jenkins_home",
+          # Docker Out of Docker
+          "/var/run/docker.sock:/var/run/docker.sock"
+        ]
       }
 
       resources {
