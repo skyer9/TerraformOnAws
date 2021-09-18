@@ -49,12 +49,14 @@ scrape_configs:
     static_configs:
     - targets: ['nb.skyer9.pe.kr:8080']
 
-  - job_name: traefik
+  - job_name: ecr_hello_world
+    metrics_path: /actuator/prometheus
+    static_configs:
+    - targets: ['nb.skyer9.pe.kr:9999']
 
-    metrics_path: /metrics
-    consul_sd_configs:
-    - server: '{{ env "attr.unique.network.ip-address" }}:8500'
-      services: ['traefik-api']
+  - job_name: haproxy_exporter
+    static_configs:
+      - targets: [{{ range service "haproxy-exporter" }}'{{ .Address }}:{{ .Port }}',{{ end }}]
 EOH
 
         change_mode   = "signal"
