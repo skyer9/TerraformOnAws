@@ -70,12 +70,6 @@ EOH
         name = "prometheus"
         port = "prometheus_ui"
 
-        tags = [
-          "traefik.enable=true",
-          "traefik.tcp.routers.prometheus.entrypoints=prometheus",
-          "traefik.tcp.routers.prometheus.rule=HostSNI(`*`)"
-        ]
-
         check {
           type     = "http"
           path     = "/-/healthy"
