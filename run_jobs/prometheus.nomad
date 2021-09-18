@@ -39,6 +39,11 @@ global:
 
 scrape_configs:
 
+  - job_name: prometheus
+    metrics_path: /metrics
+    static_configs:
+    - targets: ['nb.skyer9.pe.kr:9090']
+
   - job_name: nomad
     metrics_path: /v1/metrics
     params:

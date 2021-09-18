@@ -1,7 +1,9 @@
 job "autoscaler" {
   datacenters = ["dc1"]
+
   group "autoscaler" {
     count = 1
+
     network {
       port "http" {}
     }
@@ -9,7 +11,7 @@ job "autoscaler" {
     task "autoscaler" {
       driver = "docker"
       config {
-        image   = "${nomad_autoscaler_image}"
+        image   = "hashicorp/nomad-autoscaler:0.3.3"
         command = "nomad-autoscaler"
         args = [
           "agent",
