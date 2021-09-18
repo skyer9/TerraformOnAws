@@ -20,7 +20,7 @@ job "grafana" {
         image = "grafana/grafana:7.4.2"
         ports = ["grafana_ui"]
 
-        network_mode = "host"
+        auth_soft_fail = true
 
         volumes = [
           "local/datasources:/etc/grafana/provisioning/datasources",

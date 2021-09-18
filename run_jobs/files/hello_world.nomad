@@ -14,6 +14,8 @@ job "hello_world" {
       config {
         image = "garystafford/hello-world"
         ports = ["http"]
+
+        auth_soft_fail = true
       }
 
       resources {

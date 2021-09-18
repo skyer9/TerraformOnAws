@@ -39,6 +39,8 @@ job "haproxy" {
         image = "haproxy:2.3.5"
         ports = ["webapp", "haproxy_ui"]
 
+        auth_soft_fail = true
+
         # Use `host` network so we can communicate with the Consul agent
         # running in the host to access the service catalog.
         network_mode = "host"

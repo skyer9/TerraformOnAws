@@ -20,6 +20,8 @@ job "jenkins" {
         image = "skyer9/jenkins-docker:0.0.3"
         ports = ["jenkins_ui"]
 
+        auth_soft_fail = true
+
         volumes = [
           # Docker Out of Docker
           "/var/run/docker.sock:/var/run/docker.sock"
