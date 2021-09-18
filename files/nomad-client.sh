@@ -40,3 +40,10 @@ sudo systemctl start nomad.service
 sudo yum install docker -y
 sudo systemctl enable docker.service
 sudo service docker start
+
+# docker-credential-ecr-login
+
+wget https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.5.0/linux-amd64/docker-credential-ecr-login
+sudo chown root:root docker-credential-ecr-login
+sudo chmod 777 docker-credential-ecr-login
+sudo mv docker-credential-ecr-login /usr/local/bin/
