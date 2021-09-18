@@ -9,6 +9,10 @@ job "haproxy" {
         static = 8080
       }
 
+      port "hello_world" {
+        static = 9999
+      }
+
       port "prometheus_ui" {
         static = 9090
       }
@@ -66,6 +70,10 @@ frontend http_front
    bind *:{{ env "NOMAD_PORT_webapp" }}
    default_backend http_back
 
+frontend hello_world_front
+   bind *:{{ env "NOMAD_PORT_hello_world" }}
+   default_backend hello_world_back
+
 frontend prometheus_ui_front
    bind *:{{ env "NOMAD_PORT_prometheus_ui" }}
    default_backend prometheus_ui_back
@@ -81,6 +89,10 @@ frontend jenkins_ui_front
 backend http_back
    balance roundrobin
    server-template webapp 20 _hello-world._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
+backend hello_world_back
+   balance roundrobin
+   server-template hello_world 20 _ecr-hello-world._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 backend prometheus_ui_back
    balance roundrobin
