@@ -44,11 +44,6 @@ scrape_configs:
     static_configs:
     - targets: ['nb.skyer9.pe.kr:4646']
 
-  - job_name: hello_world
-    metrics_path: /actuator/prometheus
-    static_configs:
-    - targets: ['nb.skyer9.pe.kr:8080']
-
   - job_name: ecr_hello_world
     metrics_path: /actuator/prometheus
     static_configs:
@@ -56,7 +51,7 @@ scrape_configs:
 
   - job_name: haproxy_exporter
     static_configs:
-      - targets: [{{ range service "haproxy-exporter" }}'{{ .Address }}:{{ .Port }}',{{ end }}]
+      - targets: [{{ range service "haproxy-exporter" }}'nb.skyer9.pe.kr:{{ .Port }}',{{ end }}]
 EOH
 
         change_mode   = "signal"
