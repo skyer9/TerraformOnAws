@@ -33,7 +33,7 @@ resource "aws_autoscaling_group" "nomad_client" {
   availability_zones = var.availability_zones
   desired_capacity   = var.client_count
   min_size           = 0
-  max_size           = 10
+  max_size           = 3
   load_balancers     = [aws_elb.nomad_client.name]
 
   launch_template {
