@@ -80,7 +80,7 @@ scaling "cluster_policy" {
     evaluation_interval = "1m"
     check "cpu_allocated_percentage" {
       source = "prometheus"
-      query  = "sum(nomad_client_allocated_cpu{node_class=\"hashistack\"}*100/(nomad_client_unallocated_cpu{node_class=\"hashistack\"}+nomad_client_allocated_cpu{node_class=\"hashistack\"}))/count(nomad_client_allocated_cpu{node_class=\"hashistack\"})"
+      query  = "sum(nomad_client_allocated_cpu*100/(nomad_client_unallocated_cpu+nomad_client_allocated_cpu))/count(nomad_client_allocated_cpu)"
       strategy "target-value" {
         target = 70
       }
@@ -97,7 +97,7 @@ scaling "cluster_policy" {
 
     check "mem_allocated_percentage" {
       source = "prometheus"
-      query  = "sum(nomad_client_allocated_memory{node_class=\"hashistack\"}*100/(nomad_client_unallocated_memory{node_class=\"hashistack\"}+nomad_client_allocated_memory{node_class=\"hashistack\"}))/count(nomad_client_allocated_memory{node_class=\"hashistack\"})"
+      query  = "sum(nomad_client_allocated_memory*100/(nomad_client_unallocated_memory+nomad_client_allocated_memory))/count(nomad_client_allocated_memory)"
       strategy "target-value" {
         target = 70
       }
