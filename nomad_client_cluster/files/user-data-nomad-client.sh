@@ -11,7 +11,7 @@ sudo wget https://github.com/skyer9/TerraformOnAws/raw/main/files/consul-client.
 sudo wget https://github.com/skyer9/TerraformOnAws/raw/main/files/consul.service
 sudo wget https://github.com/skyer9/TerraformOnAws/raw/main/files/nomad-client.sh
 sudo wget https://github.com/skyer9/TerraformOnAws/raw/main/files/nomad-client.hcl
-sudo wget https://github.com/skyer9/TerraformOnAws/raw/main/files/nomad.service
+sudo wget https://github.com/skyer9/TerraformOnAws/raw/main/files/nomad-client.service
 
 sudo chmod +x /ops/setup.sh
 sudo chmod +x /ops/net.sh

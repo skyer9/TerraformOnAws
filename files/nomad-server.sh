@@ -26,7 +26,7 @@ sudo cp $FILES_DIR/consul.service /etc/systemd/system/consul.service
 
 sed -i "s/SERVER_COUNT/$SERVER_COUNT/g" $FILES_DIR/nomad-server.hcl
 sudo cp $FILES_DIR/nomad-server.hcl $NOMAD_CONFIG_DIR/nomad.hcl
-sudo cp $FILES_DIR/nomad.service /etc/systemd/system/nomad.service
+sudo cp $FILES_DIR/nomad-server.service /etc/systemd/system/nomad.service
 
 sudo systemctl daemon-reload
 
