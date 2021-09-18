@@ -17,7 +17,7 @@ job "jenkins" {
       driver = "docker"
 
       config {
-        image = "skyer9/jenkins-docker:0.0.1"
+        image = "skyer9/jenkins-docker:0.0.2"
         ports = ["jenkins_ui"]
 
         volumes = [
