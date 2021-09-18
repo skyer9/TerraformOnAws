@@ -24,6 +24,12 @@ plugin "docker" {
     volumes {
       enabled = true
     }
+
+    auth {
+      # Nomad will prepend "docker-credential-" to the helper value and call
+      # that script name.
+      helper = "ecr-login"
+    }
   }
 }
 
