@@ -45,7 +45,7 @@ datasources:
   url: http://{{ range $i, $s := service "prometheus" }}{{ if eq $i 0 }}{{.Address}}:{{.Port}}{{end}}{{end}}
   isDefault: true
   version: 1
-  editable: false
+  editable: true
 EOH
 
         destination = "local/datasources/prometheus.yaml"
