@@ -37,7 +37,7 @@ job "haproxy" {
 
       config {
         image = "haproxy:2.3.5"
-        ports = ["webapp", "haproxy_ui"]
+        ports = ["webapp", "hello_world", "prometheus_ui", "grafana_ui", "haproxy_ui", "jenkins_ui"]
 
         auth_soft_fail = true
 
@@ -139,6 +139,11 @@ EOF
       service {
         name = "haproxy-webapp"
         port = "webapp"
+      }
+
+      service {
+        name = "haproxy-jenkins-ui"
+        port = "jenkins_ui"
       }
     }
 
