@@ -1,8 +1,8 @@
 resource "aws_elb" "consul_server" {
   name               = "${var.stack_name}-consul-server"
-  availability_zones = var.availability_zones
+  availability_zones = distinct(aws_instance.consul_server.*.availability_zone)
   internal           = false
-  # instances          = aws_autoscaling_group.nomad_client.*.id
+  instances          = aws_instance.consul_server.*.id
   idle_timeout       = 360
 
   listener {
