@@ -155,6 +155,7 @@ EOF
         ports = ["haproxy_exporter"]
 
         network_mode = "host"
+        auth_soft_fail = true
 
         args = [
           "--web.listen-address",

@@ -24,6 +24,8 @@ sudo cp $FILES_DIR/consul.service /etc/systemd/system/consul.service
 
 # Nomad
 
+sudo mkdir -p /var/log/nomad
+
 sudo mkdir -p /opt/nomad-volumes/grafana
 sudo chown 472:472 /opt/nomad-volumes/grafana
 sudo mkdir -p /opt/nomad-volumes/jenkins_home

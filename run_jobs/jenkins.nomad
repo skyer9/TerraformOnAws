@@ -35,7 +35,7 @@ job "jenkins" {
 
       resources {
         cpu    = 1000
-        memory = 1024
+        memory = 512
       }
 
       service {
