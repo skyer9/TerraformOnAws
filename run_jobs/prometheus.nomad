@@ -62,9 +62,9 @@ scrape_configs:
 
   - job_name: ecr_hello_world
     metrics_path: /actuator/prometheus
-    scheme: https
-    static_configs:
-    - targets: ['nomad-client.skyer9.pe.kr:9999']
+    consul_sd_configs:
+    - server: '127.0.0.1:8500'
+      services: ['ecr-hello-world']
 
   - job_name: haproxy_exporter
     consul_sd_configs:
