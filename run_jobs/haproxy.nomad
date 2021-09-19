@@ -41,8 +41,7 @@ job "haproxy" {
 
         auth_soft_fail = true
 
-        # Use `host` network so we can communicate with the Consul agent
-        # running in the host to access the service catalog.
+        # host 로 설정했으므로 127.0.0.1 는 호스트를 가르킨다.
         network_mode = "host"
 
         volumes = [
@@ -109,7 +108,7 @@ backend jenkins_ui_back
    server-template jenkins_ui 5 _jenkins._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 resolvers consul
-   nameserver consul consul-server.skyer9.pe.kr:8600
+   nameserver consul 127.0.0.1:8600
    accepted_payload_size 8192
    hold valid 5s
 EOF
