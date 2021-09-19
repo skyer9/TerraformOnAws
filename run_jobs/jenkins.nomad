@@ -35,7 +35,7 @@ job "jenkins" {
 
       resources {
         cpu    = 1000
-        memory = 512
+        memory = 1024     # 1G 이상으로 할것!!
       }
 
       service {
