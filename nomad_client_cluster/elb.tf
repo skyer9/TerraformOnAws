@@ -45,6 +45,14 @@ resource "aws_elb" "nomad_client" {
     ssl_certificate_id = data.aws_acm_certificate.cert_skyer9_pe_kr.arn
   }
 
+  listener {
+    instance_port     = 4646
+    instance_protocol = "http"
+    lb_port            = 4646
+    lb_protocol        = "https"
+    ssl_certificate_id = data.aws_acm_certificate.cert_skyer9_pe_kr.arn
+  }
+
   health_check {
     healthy_threshold   = 8
     unhealthy_threshold = 2

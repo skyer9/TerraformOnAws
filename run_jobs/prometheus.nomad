@@ -48,6 +48,7 @@ scrape_configs:
     metrics_path: /v1/metrics
     params:
       format: ['prometheus']
+    scheme: https
     static_configs:
     - targets: ['nomad-client.skyer9.pe.kr:4646']
 
