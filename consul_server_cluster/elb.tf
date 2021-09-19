@@ -1,5 +1,5 @@
 resource "aws_elb" "consul_server" {
-  name               = "${var.stack_name}-nomad-client"
+  name               = "${var.stack_name}-consul-server"
   availability_zones = var.availability_zones
   internal           = false
   # instances          = aws_autoscaling_group.nomad_client.*.id
