@@ -42,23 +42,23 @@ scrape_configs:
   - job_name: prometheus
     metrics_path: /metrics
     static_configs:
-    - targets: ['nb.skyer9.pe.kr:9090']
+    - targets: ['nomad-client.skyer9.pe.kr:9090']
 
   - job_name: nomad
     metrics_path: /v1/metrics
     params:
       format: ['prometheus']
     static_configs:
-    - targets: ['nb.skyer9.pe.kr:4646']
+    - targets: ['nomad-client.skyer9.pe.kr:4646']
 
   - job_name: ecr_hello_world
     metrics_path: /actuator/prometheus
     static_configs:
-    - targets: ['nb.skyer9.pe.kr:9999']
+    - targets: ['nomad-client.skyer9.pe.kr:9999']
 
   - job_name: haproxy_exporter
     static_configs:
-      - targets: [{{ range service "haproxy-exporter" }}'nb.skyer9.pe.kr:{{ .Port }}',{{ end }}]
+      - targets: [{{ range service "haproxy-exporter" }}'nomad-client.skyer9.pe.kr:{{ .Port }}',{{ end }}]
 EOH
 
         change_mode   = "signal"
