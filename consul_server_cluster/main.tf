@@ -33,7 +33,7 @@ resource "aws_instance" "consul_server" {
 //  }
 
   tags = {
-    Name           = "${var.stack_name}-consul_server"
+    Name           = "${var.stack_name}-consul_server-${count.index + 1}"
     ConsulAutoJoin = "auto-join"
     OwnerName      = var.owner_name
     OwnerEmail     = var.owner_email
