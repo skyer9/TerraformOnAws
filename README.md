@@ -2,56 +2,6 @@
 
 Terraform On Aws
 
-## IAM 계정 생성
-
-`AmazonEC2FullAccess` 권한을 부여한 IAM 계정을 생성합니다.
-
-정책에 `create_role` 정책을 아래의 내용으로 추가합니다.
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Stmt1469200763880",
-            "Action": [
-                "iam:AttachRolePolicy",
-                "iam:CreateRole",
-                "iam:TagRole",
-                "iam:GetRole",
-                "iam:ListRolePolicies",
-                "iam:ListAttachedRolePolicies",
-                "iam:ListInstanceProfilesForRole",
-                "iam:DeleteRole",
-                "iam:CreateInstanceProfile",
-                "iam:GetInstanceProfile",
-                "iam:RemoveRoleFromInstanceProfile",
-                "iam:DeleteInstanceProfile",
-                "iam:AddRoleToInstanceProfile",
-                "iam:PassRole",
-                "iam:PutRolePolicy",
-                "iam:GetRolePolicy",
-                "iam:DeleteRolePolicy"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-`create_role` 권한을 부여합니다.
-
-aws-cli 를 설정합니다.
-
-```bash
-aws configure
---------------------------------------
-AWS Access Key ID [None]: AKIA3VXXXXXXXXXX
-AWS Secret Access Key [None]: sDSWqBzAyunFXXXXXXXXXXXXXXXXXXXXXX
-Default region name [None]: ap-northeast-2
-```
-
 ## ssh key 생성
 
 [참고](https://jhooq.com/terraform-ssh-into-aws-ec2/)
@@ -96,17 +46,13 @@ ls -al .ssh/aws_key*
 ```
 
 ```bash
-mkdir -p tls/consul
-cd tls/consul/
-consul tls ca create
-consul tls cert create -server
-consul tls cert create -client
+aws ec2 import-key-pair --public-key-material file://~/.ssh/aws_key.pub --key-name aws_key
 ```
 
-## 보안 그룹 생성
+## 인증서 생성
 
 ```bash
-cd security_group
+cd acm
 
 terraform init
 terraform validate
@@ -158,3 +104,14 @@ terraform apply
 
 # terraform destroy
 ```
+
+## Job 생성
+
+`Run Job` 버튼을 이용해 Job 을 생성합니다.
+
+![Job 생성](images/2021-09-20-01.png "Job 생성")
+
+- haproxy.nomad
+- prometheus.nomad
+- jenkins.nomad
+- grafana.nomad
