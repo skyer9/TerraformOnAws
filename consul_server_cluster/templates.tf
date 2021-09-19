@@ -7,7 +7,3 @@ data "template_file" "user_data_consul_server" {
     retry_join    = var.retry_join
   }
 }
-
-data "aws_security_group" "consul_lb" {
-  name = "${var.stack_name}-consul-lb"
-}

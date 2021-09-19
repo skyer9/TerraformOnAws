@@ -123,24 +123,15 @@ resource "aws_security_group" "client_lb" {
   vpc_id = data.aws_vpc.default.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 1
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = var.my_notebook_ip
   }
 
-  # Nomad HTTP API & UI.
   ingress {
-    from_port   = 4646
-    to_port     = 4648
-    protocol    = "tcp"
-    cidr_blocks = var.my_ip
-  }
-
-  # Consul HTTP API & UI.
-  ingress {
-    from_port   = 8300
-    to_port     = 8600
+    from_port   = 1
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = var.my_ip
   }
@@ -151,30 +142,6 @@ resource "aws_security_group" "client_lb" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = var.allowlist_ip
-  }
-
-  # Grafana metrics dashboard.
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = var.my_ip
-  }
-
-  # Prometheus dashboard.
-  ingress {
-    from_port   = 9090
-    to_port     = 9090
-    protocol    = "tcp"
-    cidr_blocks = var.my_ip
-  }
-
-  # haproxy
-  ingress {
-    from_port   = 4936
-    to_port     = 4936
-    protocol    = "tcp"
-    cidr_blocks = var.my_ip
   }
 
   egress {

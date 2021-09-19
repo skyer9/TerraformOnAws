@@ -8,6 +8,10 @@ data "template_file" "user_data_nomad_client" {
   }
 }
 
-data "aws_security_group" "client_lb" {
-  name = "${var.stack_name}-client-lb"
+data "aws_security_group" "consul_lb" {
+  name = "${var.stack_name}-consul-lb"
+}
+
+data "aws_security_group" "server_lb" {
+  name = "${var.stack_name}-server-lb"
 }
