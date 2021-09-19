@@ -15,6 +15,9 @@ job "prometheus" {
         image = "prom/prometheus:v2.25.0"
         ports = ["prometheus_ui"]
 
+        # host 로 설정했으므로 127.0.0.1 는 호스트를 가르킨다.
+        network_mode = "host"
+
         auth_soft_fail = true
 
         args = [
@@ -41,17 +44,21 @@ scrape_configs:
 
   - job_name: prometheus
     metrics_path: /metrics
-    scheme: https
-    static_configs:
-    - targets: ['nomad-client.skyer9.pe.kr:9090']
+    consul_sd_configs:
+    - server: '127.0.0.1:8500'
+      services: ['prometheus']
 
   - job_name: nomad
     metrics_path: /v1/metrics
     params:
       format: ['prometheus']
-    scheme: https
-    static_configs:
-    - targets: ['nomad-client.skyer9.pe.kr:4646']
+    consul_sd_configs:
+    - server: '127.0.0.1:8500'
+      services: ['nomad','nomad-client']
+    relabel_configs:
+      - source_labels: ['__meta_consul_tags']
+        regex: .*,http,.*
+        action: keep
 
   - job_name: ecr_hello_world
     metrics_path: /actuator/prometheus
@@ -60,8 +67,9 @@ scrape_configs:
     - targets: ['nomad-client.skyer9.pe.kr:9999']
 
   - job_name: haproxy_exporter
-    static_configs:
-      - targets: [{{ range service "haproxy-exporter" }}'nomad-client.skyer9.pe.kr:{{ .Port }}',{{ end }}]
+    consul_sd_configs:
+    - server: '127.0.0.1:8500'
+      services: ['haproxy-exporter']
 EOH
 
         change_mode   = "signal"
