@@ -24,6 +24,11 @@ sudo cp $FILES_DIR/consul.service /etc/systemd/system/consul.service
 
 # Nomad
 
+sudo mkdir -p /opt/nomad-volumes/grafana
+sudo chown 472:472 /opt/nomad-volumes/grafana
+sudo mkdir -p /opt/nomad-volumes/jenkins_home
+sudo chown 1000:1000 /opt/nomad-volumes/jenkins_home
+
 sed -i "s/SERVER_COUNT/$SERVER_COUNT/g" $FILES_DIR/nomad-client.hcl
 sudo cp $FILES_DIR/nomad-client.hcl $NOMAD_CONFIG_DIR/nomad.hcl
 sudo cp $FILES_DIR/nomad-client.service /etc/systemd/system/nomad.service
