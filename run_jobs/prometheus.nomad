@@ -34,13 +34,14 @@ job "prometheus" {
         data = <<EOH
 ---
 global:
-  scrape_interval:     1s
-  evaluation_interval: 1s
+  scrape_interval:     15s
+  evaluation_interval: 15s
 
 scrape_configs:
 
   - job_name: prometheus
     metrics_path: /metrics
+    scheme: https
     static_configs:
     - targets: ['nomad-client.skyer9.pe.kr:9090']
 
@@ -54,6 +55,7 @@ scrape_configs:
 
   - job_name: ecr_hello_world
     metrics_path: /actuator/prometheus
+    scheme: https
     static_configs:
     - targets: ['nomad-client.skyer9.pe.kr:9999']
 
