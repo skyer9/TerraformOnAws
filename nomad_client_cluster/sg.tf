@@ -46,6 +46,30 @@ resource "aws_security_group" "client_lb" {
     cidr_blocks = var.allowlist_ip
   }
 
+  # github webhook
+  ingress {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["192.30.252.0/22"]
+  }
+
+  # github webhook
+  ingress {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["185.199.108.0/22"]
+  }
+
+  # github webhook
+  ingress {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["140.82.112.0/20"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
