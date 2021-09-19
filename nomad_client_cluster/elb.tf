@@ -36,5 +36,5 @@ resource "aws_elb" "nomad_client" {
     interval            = 30
   }
 
-  security_groups = [data.aws_security_group.client_lb.id]
+  security_groups = [aws_security_group.client_lb.id]
 }

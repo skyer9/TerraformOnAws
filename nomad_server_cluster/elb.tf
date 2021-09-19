@@ -13,5 +13,5 @@ resource "aws_elb" "nomad_server" {
     ssl_certificate_id = data.aws_acm_certificate.cert_skyer9_pe_kr.arn
   }
 
-  security_groups = [data.aws_security_group.server_lb.id]
+  security_groups = [aws_security_group.server_lb.id]
 }

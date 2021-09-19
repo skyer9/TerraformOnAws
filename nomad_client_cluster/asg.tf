@@ -3,7 +3,7 @@ resource "aws_launch_template" "nomad_client" {
   image_id               = var.ami
   instance_type          = var.client_instance_type
   key_name               = var.key_name
-  vpc_security_group_ids = [data.aws_security_group.client_lb.id]
+  vpc_security_group_ids = [aws_security_group.client_lb.id]
   user_data              = base64encode(data.template_file.user_data_nomad_client.rendered)
 
   iam_instance_profile {
