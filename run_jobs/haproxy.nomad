@@ -109,7 +109,7 @@ backend jenkins_ui_back
    server-template jenkins_ui 5 _jenkins._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 resolvers consul
-   nameserver consul {{ env "attr.unique.network.ip-address" }}:8600
+   nameserver consul consul-server.skyer9.pe.kr:8600
    accepted_payload_size 8192
    hold valid 5s
 EOF
