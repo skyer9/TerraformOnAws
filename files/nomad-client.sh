@@ -15,6 +15,8 @@ sleep 15
 
 SERVER_COUNT=$1
 RETRY_JOIN=$2
+MY_AWS_ACCESS_KEY_ID=$3
+MY_AWS_SECRET_ACCESS_KEY=$4
 
 # Consul
 
@@ -33,7 +35,11 @@ sudo chown 1000:1000 /opt/nomad-volumes/jenkins_home
 
 sed -i "s/SERVER_COUNT/$SERVER_COUNT/g" $FILES_DIR/nomad-client.hcl
 sudo cp $FILES_DIR/nomad-client.hcl $NOMAD_CONFIG_DIR/nomad.hcl
+
+sed -i "s/MY_AWS_ACCESS_KEY_ID/$MY_AWS_ACCESS_KEY_ID/g" $FILES_DIR/nomad-client.service
+sed -i "s/MY_AWS_SECRET_ACCESS_KEY/$MY_AWS_SECRET_ACCESS_KEY/g" $FILES_DIR/nomad-client.service
 sudo cp $FILES_DIR/nomad-client.service /etc/systemd/system/nomad.service
+sudo chmod 640 /etc/systemd/system/nomad.service
 
 sudo systemctl daemon-reload
 

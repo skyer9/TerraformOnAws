@@ -16,7 +16,10 @@ RestartSec=2
 StartLimitBurst=3
 StartLimitIntervalSec=10
 TasksMax=infinity
+
 Environment="HOME=/root"
+Environment="AWS_ACCESS_KEY_ID=MY_AWS_ACCESS_KEY_ID"
+Environment="AWS_SECRET_ACCESS_KEY=MY_AWS_SECRET_ACCESS_KEY"
 
 [Install]
 WantedBy=multi-user.target

@@ -2,9 +2,11 @@ data "template_file" "user_data_nomad_client" {
   template = file("${path.module}/files/user-data-nomad-client.sh")
 
   vars = {
-    server_count  = var.client_count
-    region        = var.region
-    retry_join    = var.retry_join
+    server_count      = var.client_count
+    retry_join        = var.retry_join
+    access_key        = var.access_key
+    secret_access_key = var.secret_access_key
+    region            = var.region
   }
 }
 
