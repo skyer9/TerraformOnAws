@@ -2,7 +2,7 @@ resource "aws_elb" "nomad_client" {
   name               = "${var.stack_name}-nomad-client"
   availability_zones = var.availability_zones
   internal           = false
-  instances          = aws_autoscaling_group.nomad_client.*.id
+  # instances          = aws_autoscaling_group.nomad_client.*.id
   idle_timeout       = 360
 
   listener {
