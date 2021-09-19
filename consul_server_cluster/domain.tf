@@ -7,5 +7,9 @@ resource "aws_route53_record" "consul_server" {
   name    = "consul-server.skyer9.pe.kr"
   type    = "A"
 
-  records = [aws_instance.consul_server.public_ip]
+  alias {
+    name                   = aws_elb.consul_server.dns_name
+    zone_id                = aws_elb.consul_server.zone_id
+    evaluate_target_health = true
+  }
 }

@@ -1,4 +1,4 @@
-resource "aws_elb" "nomad_client" {
+resource "aws_elb" "consul_server" {
   name               = "${var.stack_name}-nomad-client"
   availability_zones = var.availability_zones
   internal           = false
@@ -9,24 +9,21 @@ resource "aws_elb" "nomad_client" {
     instance_port     = 8400
     instance_protocol = "http"
     lb_port            = 8400
-    lb_protocol        = "https"
-    ssl_certificate_id = data.aws_acm_certificate.cert_skyer9_pe_kr.arn
+    lb_protocol        = "http"
   }
 
   listener {
     instance_port     = 8500
     instance_protocol = "http"
     lb_port            = 8500
-    lb_protocol        = "https"
-    ssl_certificate_id = data.aws_acm_certificate.cert_skyer9_pe_kr.arn
+    lb_protocol        = "http"
   }
 
   listener {
     instance_port     = 8600
     instance_protocol = "http"
     lb_port            = 8600
-    lb_protocol        = "https"
-    ssl_certificate_id = data.aws_acm_certificate.cert_skyer9_pe_kr.arn
+    lb_protocol        = "http"
   }
 
   health_check {
