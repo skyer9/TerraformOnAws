@@ -18,7 +18,7 @@ job "private_ecr_hello_world" {
 
       resources {
         cpu    = 1000
-        memory = 2048
+        memory = 1024
       }
 
       service {
