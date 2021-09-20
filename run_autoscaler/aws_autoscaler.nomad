@@ -117,7 +117,7 @@ scaling "cluster_policy" {
 
     target "aws-asg" {
       dry-run             = "false"
-      aws_asg_name        = "${client_asg_name}"
+      aws_asg_name        = "my-nomad_client"         # client 노드 asg 이름
       node_class          = "hashistack"
       node_drain_deadline = "5m"
     }
