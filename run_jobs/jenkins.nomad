@@ -22,6 +22,9 @@ job "jenkins" {
 
         auth_soft_fail = true
 
+        # host 로 설정했으므로 127.0.0.1 는 호스트를 가르킨다.
+        network_mode = "host"
+
         volumes = [
           # Docker Out of Docker
           "/var/run/docker.sock:/var/run/docker.sock"
