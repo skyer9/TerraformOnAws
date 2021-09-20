@@ -6,6 +6,8 @@ job "jenkins" {
 
     network {
       port "jenkins_ui" { to = 8080 }
+
+      port "nomad" { to = 4646 }
     }
 
     volume "jenkins_home" {
@@ -18,7 +20,7 @@ job "jenkins" {
 
       config {
         image = "skyer9/jenkins-docker:0.0.3"
-        ports = ["jenkins_ui"]
+        ports = ["jenkins_ui", "nomad"]
 
         auth_soft_fail = true
 
