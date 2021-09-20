@@ -12,6 +12,10 @@ job "autoscaler" {
       driver = "docker"
       config {
         image   = "hashicorp/nomad-autoscaler:0.3.3"
+        ports = ["http"]
+
+        auth_soft_fail = true
+
         command = "nomad-autoscaler"
         args = [
           "agent",
@@ -24,7 +28,6 @@ job "autoscaler" {
           "-policy-dir",
           "$${NOMAD_TASK_DIR}/policies/",
         ]
-        ports = ["http"]
       }
 
       template {
