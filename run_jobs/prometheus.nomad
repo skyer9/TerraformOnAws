@@ -56,6 +56,14 @@ scrape_configs:
       - targets:
         - '127.0.0.1:8500'
 
+  - job_name: jenkins
+    # 1. install Jenkins plug-in Prometheus metrics
+    # 2. restart Jenkins
+    metrics_path: /prometheus/
+    consul_sd_configs:
+    - server: '127.0.0.1:8500'
+      services: ['jenkins']
+
   - job_name: nomad
     metrics_path: /v1/metrics
     params:
