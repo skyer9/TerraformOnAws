@@ -59,6 +59,7 @@ scrape_configs:
   - job_name: jenkins
     # 1. install Jenkins plug-in Prometheus metrics
     # 2. restart Jenkins
+    # 인증을 활성화하려면 젠킨스 시스템설정에서 활성화 가능합니다.
     metrics_path: /prometheus/
     consul_sd_configs:
     - server: '127.0.0.1:8500'
