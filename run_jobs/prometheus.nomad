@@ -48,6 +48,14 @@ scrape_configs:
     - server: '127.0.0.1:8500'
       services: ['prometheus']
 
+  - job_name: consul
+    metrics_path: /v1/agent/metrics
+    params:
+      format: ['prometheus']
+    static_configs:
+      - targets:
+        - '127.0.0.1:8500'
+
   - job_name: nomad
     metrics_path: /v1/metrics
     params:
