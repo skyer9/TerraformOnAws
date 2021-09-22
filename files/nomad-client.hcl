@@ -28,7 +28,7 @@ plugin "docker" {
     # 실행 실패시 이미지 삭제
     # 디버깅시 false 로 할것
     gc {
-      container   = false
+      container   = true
     }
 
     auth {
