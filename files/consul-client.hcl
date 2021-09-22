@@ -3,6 +3,10 @@ log_level = "INFO"
 
 server = false
 
+telemetry {
+  prometheus_retention_time = "24h"
+}
+
 # verify_incoming = true
 # verify_outgoing = true
 # # verify_server_hostname = true

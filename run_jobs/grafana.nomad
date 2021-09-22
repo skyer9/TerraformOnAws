@@ -20,6 +20,9 @@ job "grafana" {
         image = "grafana/grafana:7.4.2"
         ports = ["grafana_ui"]
 
+        # host 로 설정했으므로 127.0.0.1 는 호스트를 가르킨다.
+        network_mode = "host"
+
         auth_soft_fail = true
 
         volumes = [
