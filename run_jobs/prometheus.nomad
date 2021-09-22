@@ -26,6 +26,9 @@ job "prometheus" {
           "--web.listen-address=0.0.0.0:${NOMAD_PORT_prometheus_ui}",
           "--web.console.libraries=/usr/share/prometheus/console_libraries",
           "--web.console.templates=/usr/share/prometheus/consoles",
+          # for Thanos
+          # "--storage.tsdb.max-block-duration=2h",
+          # "--storage.tsdb.min-block-duration=2h",
         ]
 
         volumes = [
