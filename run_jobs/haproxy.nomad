@@ -1,6 +1,6 @@
 job "haproxy" {
   datacenters = ["dc1"]
-  type = "system"
+  type = "system"         # 모든 노드에 자동설치
 
   group "haproxy" {
     count = 1
