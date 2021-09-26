@@ -118,7 +118,7 @@ backend jenkins_ui_back
 
 backend elasticsearch_back
    balance roundrobin
-   server-template elasticsearch 5 _elasticsearch._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+   server-template elasticsearch 5 _main-server-request._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 resolvers consul
    nameserver consul 127.0.0.1:8600
