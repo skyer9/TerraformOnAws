@@ -1,5 +1,6 @@
 job "haproxy" {
   datacenters = ["dc1"]
+  type = "system"
 
   group "haproxy" {
     count = 1
@@ -10,7 +11,7 @@ job "haproxy" {
       }
 
       port "hello_world" {
-        static = 9999
+        static = 19999
       }
 
       port "prometheus_ui" {
@@ -27,6 +28,10 @@ job "haproxy" {
 
       port "jenkins_ui" {
         static = 8000
+      }
+
+      port "elasticsearch" {
+        static = 9200
       }
 
       port "haproxy_exporter" {}
@@ -87,6 +92,10 @@ frontend jenkins_ui_front
    bind *:{{ env "NOMAD_PORT_jenkins_ui" }}
    default_backend jenkins_ui_back
 
+frontend elasticsearch_front
+   bind *:{{ env "NOMAD_PORT_elasticsearch" }}
+   default_backend elasticsearch_back
+
 backend http_back
    balance roundrobin
    server-template webapp 20 _hello-world._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
@@ -106,6 +115,10 @@ backend grafana_ui_back
 backend jenkins_ui_back
    balance roundrobin
    server-template jenkins_ui 5 _jenkins._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
+backend elasticsearch_back
+   balance roundrobin
+   server-template elasticsearch 5 _elasticsearch._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 resolvers consul
    nameserver consul 127.0.0.1:8600
