@@ -34,11 +34,12 @@ KAFKA_ZOOKEEPER_CONNECT={{range $index, $service := service "kafka-zookeeper-cli
 EOF
         destination = "secrets/file.env"
         env         = true
+        change_mode = "restart"         # 서비스가 바뀌면 재시작
       }
 
       resources {
         cpu    = 1000
-        memory = 1024
+        memory = 512
       }
 
       service {
