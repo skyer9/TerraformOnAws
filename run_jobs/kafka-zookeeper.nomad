@@ -118,7 +118,7 @@ job "kafka-zookeeper" {
         ]
       }
 
-      # consul template used to create the zoo.cfg.dyamic file within the entrypoint script.
+      # consul template used to create the zoo.cfg.dynamic file within the entrypoint script.
       template {
         destination = "local/conf/zoo.cfg.dynamic.txt"
         change_mode = "noop"
