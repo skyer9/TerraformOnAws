@@ -1,18 +1,10 @@
-job "kafka-zk-XXX1-telemetry" {
+job "kafka-zookeeper" {
   datacenters = ["dc1"]
   type = "service"
 
-  group "kafka-zk-XXX1" {
+  group "kafka-zookeeper" {
 
     count = 3
-
-#    meta {
-#      cert_ttl            = "168h"
-#      cluster_dc          = "XXX1"
-#      mtls_path           = "/path/to/kafka/mtls"
-#      int_ca_path         = "/path/to/intca/ca"
-#      root_ca_path        = "/path/to/rootca/ca"
-#    }
 
     # Run tasks in serial or parallel (1 for serial)
     update {
@@ -46,7 +38,7 @@ job "kafka-zk-XXX1-telemetry" {
       sticky  = false
     }
 
-    task "kafka-zk-XXX1" {
+    task "kafka-zookeeper" {
       driver = "docker"
 
       artifact {
@@ -81,9 +73,9 @@ job "kafka-zk-XXX1-telemetry" {
         ZOO_DATA_DIR="/data"
         ZOO_LOG4J_PROP="INFO,CONSOLE"
         ZK_WAIT_FOR_CONSUL_SVC="30"
-        ZK_CLIENT_SVC_NAME="kafka-zk-XXX1-client"
-        ZK_PEER1_SVC_NAME="kafka-zk-XXX1-peer1"
-        ZK_PEER2_SVC_NAME="kafka-zk-XXX1-peer2"
+        ZK_CLIENT_SVC_NAME="kafka-zookeeper-client"
+        ZK_PEER1_SVC_NAME="kafka-zookeeper-peer1"
+        ZK_PEER2_SVC_NAME="kafka-zookeeper-peer2"
       }
 
       kill_timeout = "15s"
@@ -102,9 +94,9 @@ job "kafka-zk-XXX1-telemetry" {
       }
       service {
         port = "client"
-        name = "kafka-zk-XXX1-client"
+        name = "kafka-zookeeper-client"
         tags = [
-          "kafka-zk-XXX1-telmetry-client",
+          "kafka-zookeeper-client",
           "peer1_port=${NOMAD_HOST_PORT_peer1}",
           "peer2_port=${NOMAD_HOST_PORT_peer2}",
           "alloc_index=${NOMAD_ALLOC_INDEX}"
@@ -113,16 +105,16 @@ job "kafka-zk-XXX1-telemetry" {
 
       service {
         port = "peer1"
-        name = "kafka-zk-XXX1-peer1"
+        name = "kafka-zookeeper-peer1"
         tags = [
-          "kafka-zk-XXX1-telemetry-peer1"
+          "kafka-zookeeper-telemetry-peer1"
         ]
       }
       service {
         port = "peer2"
-        name = "kafka-zk-XXX1-peer2"
+        name = "kafka-zookeeper-peer2"
         tags = [
-          "kafka-zk-XXX1-telmetry-peer2"
+          "kafka-zookeeper-telmetry-peer2"
         ]
       }
 
@@ -144,6 +136,7 @@ server.{{ $alloc_index_tag | replaceAll "alloc_index=" "" | parseInt | add 1 }}=
 {{ end }}
 EOF
       }
+
       # Generate a myid file, which is copied to /data/myid by the entrypoint script.
       template {
         destination = "local/conf/myid"
@@ -152,6 +145,7 @@ EOF
 {{ env "NOMAD_ALLOC_INDEX" | parseInt | add 1 }}
 EOF
       }
+
       # as zookeeper dynamically updates zoo.cfg we template to zoo.cfg.tmpl and in the docker-entrypoint.sh of the image copy to zoo.cfg.
       # this prevents the allocation from throwing an error when zookeeper updates zoo.cfg
       template {
