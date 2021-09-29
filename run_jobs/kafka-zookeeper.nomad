@@ -119,6 +119,7 @@ job "kafka-zookeeper" {
       }
 
       # consul template used to create the zoo.cfg.dynamic file within the entrypoint script.
+      # rolling update 는 작동하지 않고, 무조건 서비스 전체를 지우고 다시 시작해야 한다.
       template {
         destination = "local/conf/zoo.cfg.dynamic.txt"
         change_mode = "noop"
