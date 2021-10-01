@@ -82,7 +82,7 @@ job "kafka-zookeeper" {
 
       resources {
         cpu = 1000
-        memory = 128
+        memory = 256
         network {
           mbits = 100
           port "client" {}
