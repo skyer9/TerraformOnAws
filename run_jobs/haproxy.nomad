@@ -101,7 +101,7 @@ frontend elasticsearch_front
    default_backend elasticsearch_back
 
 frontend mg_front
-   bind *:{{ env "NOMAD_PORT_mg" }}        ssl crt /ssl/privkey.pem
+   bind *:{{ env "NOMAD_PORT_mg" }}        ssl crt /ssl/ssl.pem
    default_backend mg_back
 
 backend http_back
