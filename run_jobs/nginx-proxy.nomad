@@ -27,6 +27,7 @@ job "nginx-proxy" {
 
         volumes = [
           "local/conf:/etc/nginx/conf.d",
+          "/ssl/:/ssl/",
         ]
       }
 
@@ -68,7 +69,10 @@ upstream main-server-request {
 }
 
 server {
-   listen 28080;
+   listen 28080 ssl;
+   server_name nb.skyer9.pe.kr;
+   ssl_certificate_key /ssl/privkey.pem;
+   ssl_certificate /ssl/fullchain.pem;
 
    location / {
       proxy_pass http://mg;
@@ -77,6 +81,9 @@ server {
 
 server {
    listen 8000;
+   server_name nb.skyer9.pe.kr;
+   ssl_certificate_key /ssl/privkey.pem;
+   ssl_certificate /ssl/fullchain.pem;
 
    location / {
       proxy_pass http://jenkins;
