@@ -28,6 +28,10 @@ job "jenkins" {
         ]
       }
 
+      env {
+        JENKINS_JAVA_OPTIONS="-Dorg.apache.commons.jelly.tags.fmt.timeZone=Asia/Seoul"
+      }
+
       volume_mount {
         volume      = "jenkins_home"
         destination = "/var/jenkins_home"
@@ -35,7 +39,7 @@ job "jenkins" {
 
       resources {
         cpu    = 1000
-        memory = 1024     # 1G 이상으로 할것!!
+        memory = 2048     # 1G 이상으로 할것!!
       }
 
       service {
