@@ -80,7 +80,7 @@ server {
 }
 
 server {
-   listen 8000;
+   listen 8000 ssl;
    server_name nb.skyer9.pe.kr;
    ssl_certificate_key /ssl/privkey.pem;
    ssl_certificate /ssl/fullchain.pem;
