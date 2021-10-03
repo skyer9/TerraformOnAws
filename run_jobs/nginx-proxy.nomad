@@ -12,7 +12,7 @@ job "nginx-proxy" {
       port "elasticsearch" { static = 9200 }
     }
 
-    task "jenkins" {
+    task "nginx-proxy" {
       driver = "docker"
 
       config {
