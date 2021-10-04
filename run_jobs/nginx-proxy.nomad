@@ -76,6 +76,18 @@ server {
 
    location / {
       proxy_pass http://mg;
+
+      proxy_read_timeout 310s;
+      proxy_buffering off;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-Port 28080;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Origin "${scheme}://${proxy_host}";
    }
 }
 
@@ -87,6 +99,18 @@ server {
 
    location / {
       proxy_pass http://jenkins;
+
+      proxy_read_timeout 310s;
+      proxy_buffering off;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-Port 8000;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Origin "${scheme}://${proxy_host}";
    }
 }
 
@@ -95,6 +119,18 @@ server {
 
    location / {
       proxy_pass http://prometheus;
+
+      proxy_read_timeout 310s;
+      proxy_buffering off;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-Port 9090;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Origin "${scheme}://${proxy_host}";
    }
 }
 
@@ -103,6 +139,18 @@ server {
 
    location / {
       proxy_pass http://grafana;
+
+      proxy_read_timeout 310s;
+      proxy_buffering off;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-Port 3000;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Origin "${scheme}://${proxy_host}";
    }
 }
 
@@ -111,6 +159,18 @@ server {
 
    location / {
       proxy_pass http://main-server-request;
+
+      proxy_read_timeout 310s;
+      proxy_buffering off;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-Port 9200;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Origin "${scheme}://${proxy_host}";
    }
 }
 EOF
