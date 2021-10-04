@@ -5,7 +5,7 @@ job "jenkins" {
     count = 1
 
     network {
-      port "jenkins_ui" { to = 8080 }
+      port "jenkins_ui" {}
     }
 
     volume "jenkins_home" {
@@ -22,6 +22,9 @@ job "jenkins" {
 
         auth_soft_fail = true
 
+        # host 로 설정했으므로 127.0.0.1 는 호스트를 가르킨다.
+        network_mode = "host"
+
         volumes = [
           # Docker Out of Docker
           "/var/run/docker.sock:/var/run/docker.sock"
@@ -30,6 +33,7 @@ job "jenkins" {
 
       env {
         JENKINS_JAVA_OPTIONS="-Dorg.apache.commons.jelly.tags.fmt.timeZone=Asia/Seoul"
+        JENKINS_OPTS="--httpPort=${NOMAD_PORT_jenkins_ui}"
       }
 
       volume_mount {
@@ -39,7 +43,7 @@ job "jenkins" {
 
       resources {
         cpu    = 1000
-        memory = 2048     # 1G 이상으로 할것!!
+        memory = 2048     # 2G 이상으로 할것!!
       }
 
       service {
