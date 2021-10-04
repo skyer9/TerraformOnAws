@@ -32,7 +32,8 @@ job "jenkins" {
       }
 
       env {
-        JENKINS_JAVA_OPTIONS="-Dorg.apache.commons.jelly.tags.fmt.timeZone=Asia/Seoul"
+        # user time zone 을 설정할 수 있다.
+        # JENKINS_JAVA_OPTIONS="-Dorg.apache.commons.jelly.tags.fmt.timeZone=Asia/Seoul"
         JENKINS_OPTS="--httpPort=${NOMAD_PORT_jenkins_ui}"
       }
 
