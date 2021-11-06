@@ -42,6 +42,7 @@ EOF
 
       config {
         image   = "docker.elastic.co/elasticsearch/elasticsearch:7.15.0"
+        # image   = "skyer9/elasticsearch-jaso-analyzer:7.15.0"
         command = "elasticsearch"
 
         args = [
