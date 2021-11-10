@@ -17,6 +17,12 @@ client {
     # sudo chown 1000:1000 /opt/nomad-volumes/jenkins_home
     path = "/opt/nomad-volumes/jenkins_home"
   }
+  host_volume "elasticsearch_data" {
+    # add directory manually
+    # sudo mkdir -p /opt/nomad-volumes/elasticsearch_data
+    # sudo chown 1000:1000 /opt/nomad-volumes/elasticsearch_data
+    path = "/opt/nomad-volumes/elasticsearch_data"
+  }
 }
 
 plugin "docker" {

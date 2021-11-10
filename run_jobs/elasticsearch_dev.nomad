@@ -11,6 +11,11 @@ job "elasticsearch" {
       port "communication" {}
     }
 
+    volume "elasticsearch_data" {
+      type   = "host"
+      source = "elasticsearch_data"
+    }
+
     task "elasticsearch" {
       driver = "docker"
 
@@ -67,6 +72,11 @@ EOF
         volumes = [
           "local/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
         ]
+      }
+
+      volume_mount {
+        volume      = "elasticsearch_data"
+        destination = "/usr/share/elasticsearch/data"
       }
 
       resources {
