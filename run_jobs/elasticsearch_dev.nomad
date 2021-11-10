@@ -16,6 +16,11 @@ job "elasticsearch" {
       source = "elasticsearch_data"
     }
 
+    volume "elasticsearch_analysis" {
+      type   = "host"
+      source = "elasticsearch_analysis"
+    }
+
     task "elasticsearch" {
       driver = "docker"
 
@@ -77,6 +82,11 @@ EOF
       volume_mount {
         volume      = "elasticsearch_data"
         destination = "/usr/share/elasticsearch/data"
+      }
+
+      volume_mount {
+        volume      = "elasticsearch_analysis"
+        destination = "/usr/share/elasticsearch/config/analysis"
       }
 
       resources {

@@ -23,6 +23,12 @@ client {
     # sudo chown 1000:1000 /opt/nomad-volumes/elasticsearch_data
     path = "/opt/nomad-volumes/elasticsearch_data"
   }
+  host_volume "elasticsearch_analysis" {
+    # add directory manually
+    # sudo mkdir -p /opt/nomad-volumes/elasticsearch_analysis
+    # sudo chown 1000:1000 /opt/nomad-volumes/elasticsearch_analysis
+    path = "/opt/nomad-volumes/elasticsearch_analysis"
+  }
 }
 
 plugin "docker" {
