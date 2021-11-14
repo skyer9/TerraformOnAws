@@ -60,7 +60,8 @@ EOF
           "-Ehttp.publish_port=${NOMAD_HOST_PORT_request}",
           "-Ehttp.port=${NOMAD_PORT_request}",
           "-Etransport.publish_port=${NOMAD_HOST_PORT_communication}",
-          "-Etransport.tcp.port=${NOMAD_PORT_communication}"
+          "-Etransport.tcp.port=${NOMAD_PORT_communication}",
+          "-Expack.security.enabled=false"
         ]
 
         ports = [

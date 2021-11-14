@@ -41,7 +41,8 @@ EOF
       }
 
       config {
-        image   = "docker.elastic.co/elasticsearch/elasticsearch:7.15.0"
+        image   = "docker.elastic.co/elasticsearch/elasticsearch:7.15.1"
+        # image   = "skyer9/elasticsearch-jaso-analyzer:7.15.1.1"
         command = "elasticsearch"
 
         args = [
@@ -49,7 +50,8 @@ EOF
           "-Ehttp.publish_port=${NOMAD_HOST_PORT_request}",
           "-Ehttp.port=${NOMAD_PORT_request}",
           "-Etransport.publish_port=${NOMAD_HOST_PORT_communication}",
-          "-Etransport.tcp.port=${NOMAD_PORT_communication}"
+          "-Etransport.tcp.port=${NOMAD_PORT_communication}",
+          "-Expack.security.enabled=false"
         ]
 
         ports = [
@@ -141,7 +143,8 @@ EOF
       }
 
       config {
-        image   = "docker.elastic.co/elasticsearch/elasticsearch:7.15.0"
+        image   = "docker.elastic.co/elasticsearch/elasticsearch:7.15.1"
+        # image   = "skyer9/elasticsearch-jaso-analyzer:7.15.1.1"
         command = "elasticsearch"
 
         args = [
@@ -149,7 +152,8 @@ EOF
           "-Ehttp.publish_port=${NOMAD_HOST_PORT_request}",
           "-Ehttp.port=${NOMAD_PORT_request}",
           "-Etransport.publish_port=${NOMAD_HOST_PORT_communication}",
-          "-Etransport.tcp.port=${NOMAD_PORT_communication}"
+          "-Etransport.tcp.port=${NOMAD_PORT_communication}",
+          "-Expack.security.enabled=false"
         ]
 
         ports = [
@@ -243,7 +247,8 @@ EOF
       }
 
       config {
-        image   = "docker.elastic.co/elasticsearch/elasticsearch:7.15.0"
+        image   = "docker.elastic.co/elasticsearch/elasticsearch:7.15.1"
+        # image   = "skyer9/elasticsearch-jaso-analyzer:7.15.1.1"
         command = "elasticsearch"
 
         args = [
@@ -251,7 +256,8 @@ EOF
           "-Ehttp.publish_port=${NOMAD_HOST_PORT_request}",
           "-Ehttp.port=${NOMAD_PORT_request}",
           "-Etransport.publish_port=${NOMAD_HOST_PORT_communication}",
-          "-Etransport.tcp.port=${NOMAD_PORT_communication}"
+          "-Etransport.tcp.port=${NOMAD_PORT_communication}",
+          "-Expack.security.enabled=false"
         ]
 
         ports = [
