@@ -17,6 +17,8 @@
 #}
 
 job "trino" {
+  # nomad namespace apply -description "trino cluster" trino
+  namespace   = "trino"
   datacenters = ["dc1"]
   type        = "service"
 
@@ -326,48 +328,6 @@ EOF
     }
   }
 
-#  group "cli" {
-#    count = 1
-#    restart {
-#      attempts = 3
-#      delay = "30s"
-#      interval = "5m"
-#      mode = "fail"
-#    }
-#    task "await-coordinator" {
-#      driver = "docker"
-#      config {
-#        image        = "busybox:1.28"
-#        command      = "sh"
-#        args         = ["-c", "echo -n 'Waiting for service'; until nslookup trino-coordinator.service.consul 2>&1 >/dev/null; do echo '.'; sleep 2; done"]
-#        network_mode = "host"
-#      }
-#      resources {
-#        cpu    = 100
-#        memory = 128
-#      }
-#      lifecycle {
-#        hook    = "prestart"
-#        sidecar = false
-#      }
-#    }
-#    task "trino-cli" {
-#      driver = "docker"
-#      kill_timeout = "300s"
-#      kill_signal = "SIGTERM"
-#      config {
-#        image = "mykidong/trino-cli:356"
-#        force_pull = true
-#        command = "tail"
-#        args = [
-#          "-f",
-#          "/dev/null"
-#        ]
-#      }
-#      resources {
-#        cpu = 100
-#        memory = 256
-#      }
-#    }
-#  }
+  # client
+  # trino --server=http://192.168.0.9:31625
 }
