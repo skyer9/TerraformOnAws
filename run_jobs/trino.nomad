@@ -109,7 +109,7 @@ EOF
       template {
         data = <<EOF
 connector.name=mysql
-connection-url=jdbc:mysql://nb.skyer9.pe.kr:3306
+connection-url=jdbc:mysql://nb.skyer9.pe.kr:3306/?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
 connection-user=mg
 connection-password=abcd1234
 EOF
@@ -272,7 +272,7 @@ EOF
       template {
         data = <<EOF
 connector.name=mysql
-connection-url=jdbc:mysql://nb.skyer9.pe.kr:3306
+connection-url=jdbc:mysql://nb.skyer9.pe.kr:3306/?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
 connection-user=mg
 connection-password=abcd1234
 EOF
