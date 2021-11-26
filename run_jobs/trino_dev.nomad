@@ -16,7 +16,7 @@
 #  }
 #}
 
-job "trino" {
+job "trino-cluster" {
   # nomad namespace apply -description "trino cluster" trino
   namespace   = "trino"
   datacenters = ["dc1"]
