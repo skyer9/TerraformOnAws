@@ -8,7 +8,6 @@ job "nginx-proxy" {
       port "mg" { static = 28080 }
       port "jenkins" { static = 8000 }
       port "prometheus" { static = 9090 }
-      port "grafana" { static = 3000 }
       port "elasticsearch" { static = 9200 }
     }
 
@@ -49,13 +48,6 @@ upstream jenkins {
 
 upstream prometheus {
 {{ range service "prometheus" }}
-  server {{ .Address }}:{{ .Port }};
-{{ else }}server 127.0.0.1:65535; # force a 502
-{{ end }}
-}
-
-upstream grafana {
-{{ range service "grafana" }}
   server {{ .Address }}:{{ .Port }};
 {{ else }}server 127.0.0.1:65535; # force a 502
 {{ end }}
@@ -128,26 +120,6 @@ server {
       proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host $host;
       proxy_set_header X-Forwarded-Port 9090;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
-      proxy_set_header Origin "${scheme}://${proxy_host}";
-   }
-}
-
-server {
-   listen 3000;
-
-   location / {
-      proxy_pass http://grafana;
-
-      proxy_read_timeout 310s;
-      proxy_buffering off;
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Host $host;
-      proxy_set_header X-Forwarded-Port 3000;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection "upgrade";
       proxy_set_header Origin "${scheme}://${proxy_host}";

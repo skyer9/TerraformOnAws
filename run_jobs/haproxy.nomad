@@ -18,12 +18,20 @@ job "haproxy" {
 #        static = 9090
 #      }
 
-#      port "grafana_ui" {
-#        static = 3000
-#      }
+      port "grafana_ui" {
+        static = 3000
+      }
 
       port "haproxy_ui" {
         static = 4936
+      }
+
+      port "trino_cluster" {
+        static = 8090
+      }
+
+      port "zeppelin" {
+        static = 10000
       }
 
 #      port "jenkins_ui" {
@@ -84,14 +92,27 @@ frontend stats
 #frontend prometheus_ui_front
 #   bind *:{{ env "NOMAD_PORT_prometheus_ui" }}
 #   default_backend prometheus_ui_back
-#
-#frontend grafana_ui_front
-#   bind *:{{ env "NOMAD_PORT_grafana_ui" }}
-#   default_backend grafana_ui_back
 
-#frontend jenkins_ui_front
-#   bind *:{{ env "NOMAD_PORT_jenkins_ui" }}
-#   default_backend jenkins_ui_back
+frontend grafana_ui_front
+   # bind *:{{ env "NOMAD_PORT_grafana_ui" }}
+   bind *:{{ env "NOMAD_PORT_grafana_ui" }} ssl crt /ssl/ssl.pem
+
+   default_backend grafana_ui_back
+
+   acl grafana-ssl-acl path_beg /.well-known/acme-challenge/
+   use_backend grafana-ssl-backend if grafana-ssl-acl
+
+frontend zeppelin_front
+   bind *:{{ env "NOMAD_PORT_zeppelin" }} ssl crt /ssl/ssl.pem
+
+   default_backend zeppelin_back
+
+   acl zeppelin-ssl-acl path_beg /.well-known/acme-challenge/
+   use_backend zeppelin-ssl-backend if zeppelin-ssl-acl
+
+frontend trino_cluster_front
+   bind *:{{ env "NOMAD_PORT_trino_cluster" }}
+   default_backend trino_cluster_back
 
 #frontend elasticsearch_front
 #   bind *:{{ env "NOMAD_PORT_elasticsearch" }}
@@ -108,15 +129,25 @@ frontend stats
 #backend prometheus_ui_back
 #   balance roundrobin
 #   server-template prometheus_ui 5 _prometheus._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
-#
-#backend grafana_ui_back
-#   balance roundrobin
-#   server-template grafana 5 _grafana._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
-#backend jenkins_ui_back
-#   balance roundrobin
-#   server-template jenkins_ui 5 _jenkins._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
-#
+backend grafana_ui_back
+   balance roundrobin
+   server-template grafana 5 _grafana._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
+backend grafana-ssl-backend
+   server grafana *:{{ env "NOMAD_PORT_grafana_ui" }}
+
+backend zeppelin_back
+   balance roundrobin
+   server test_site1 nb.skyer9.pe.kr:9999 check inter 5s rise 3 fall 2
+
+backend zeppelin-ssl-backend
+   server zeppelin *:{{ env "NOMAD_PORT_zeppelin" }}
+
+backend trino_cluster_back
+   balance roundrobin
+   server-template trino_cluster 5 _trino-coordinator._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
 #backend elasticsearch_back
 #   balance roundrobin
 #   server-template elasticsearch 5 _main-server-request._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
