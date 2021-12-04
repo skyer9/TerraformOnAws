@@ -38,9 +38,9 @@ job "haproxy" {
 #        static = 8000
 #      }
 
-#      port "elasticsearch" {
-#        static = 9200
-#      }
+      port "elasticsearch" {
+        static = 9200
+      }
 
       port "haproxy_exporter" {}
     }
@@ -114,9 +114,13 @@ frontend trino_cluster_front
    bind *:{{ env "NOMAD_PORT_trino_cluster" }}
    default_backend trino_cluster_back
 
-#frontend elasticsearch_front
-#   bind *:{{ env "NOMAD_PORT_elasticsearch" }}
-#   default_backend elasticsearch_back
+frontend elasticsearch_front
+   bind *:{{ env "NOMAD_PORT_elasticsearch" }} ssl crt /ssl/ssl.pem
+
+   default_backend elasticsearch_back
+
+   acl elasticsearch-ssl-acl path_beg /.well-known/acme-challenge/
+   use_backend elasticsearch-ssl-backend if elasticsearch-ssl-acl
 
 #backend http_back
 #   balance roundrobin
@@ -148,9 +152,12 @@ backend trino_cluster_back
    balance roundrobin
    server-template trino_cluster 5 _trino-coordinator._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
-#backend elasticsearch_back
-#   balance roundrobin
-#   server-template elasticsearch 5 _main-server-request._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+backend elasticsearch_back
+   balance roundrobin
+   server-template elasticsearch 5 _main-server-request._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
+backend elasticsearch-ssl-backend
+   server elasticsearch *:{{ env "NOMAD_PORT_elasticsearch" }}
 
 resolvers consul
    nameserver consul 127.0.0.1:8600
