@@ -7,8 +7,6 @@ job "nginx-proxy" {
     network {
       port "mg" { static = 28080 }
       port "jenkins" { static = 8000 }
-      port "prometheus" { static = 9090 }
-      port "elasticsearch" { static = 9200 }
     }
 
     task "nginx-proxy" {
@@ -41,20 +39,6 @@ upstream mg {
 
 upstream jenkins {
 {{ range service "jenkins" }}
-  server {{ .Address }}:{{ .Port }};
-{{ else }}server 127.0.0.1:65535; # force a 502
-{{ end }}
-}
-
-upstream prometheus {
-{{ range service "prometheus" }}
-  server {{ .Address }}:{{ .Port }};
-{{ else }}server 127.0.0.1:65535; # force a 502
-{{ end }}
-}
-
-upstream main-server-request {
-{{ range service "main-server-request" }}
   server {{ .Address }}:{{ .Port }};
 {{ else }}server 127.0.0.1:65535; # force a 502
 {{ end }}
@@ -100,46 +84,6 @@ server {
       proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host $host;
       proxy_set_header X-Forwarded-Port 8000;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
-      proxy_set_header Origin "${scheme}://${proxy_host}";
-   }
-}
-
-server {
-   listen 9090;
-
-   location / {
-      proxy_pass http://prometheus;
-
-      proxy_read_timeout 310s;
-      proxy_buffering off;
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Host $host;
-      proxy_set_header X-Forwarded-Port 9090;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
-      proxy_set_header Origin "${scheme}://${proxy_host}";
-   }
-}
-
-server {
-   listen 9200;
-
-   location / {
-      proxy_pass http://main-server-request;
-
-      proxy_read_timeout 310s;
-      proxy_buffering off;
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Host $host;
-      proxy_set_header X-Forwarded-Port 9200;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection "upgrade";
       proxy_set_header Origin "${scheme}://${proxy_host}";

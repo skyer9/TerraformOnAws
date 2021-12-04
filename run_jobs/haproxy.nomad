@@ -34,12 +34,16 @@ job "haproxy" {
         static = 10000
       }
 
-#      port "jenkins_ui" {
-#        static = 8000
-#      }
+      port "jenkins" {
+        static = 8000
+      }
 
       port "elasticsearch" {
         static = 9200
+      }
+
+      port "mg" {
+        static = 28080
       }
 
       port "haproxy_exporter" {}
@@ -74,6 +78,7 @@ defaults
    timeout connect 5s
    timeout server 10s
    timeout http-request 10s
+   option forwardfor
 
 frontend stats
    bind *:{{ env "NOMAD_PORT_haproxy_ui" }}
@@ -114,6 +119,14 @@ frontend trino_cluster_front
    bind *:{{ env "NOMAD_PORT_trino_cluster" }}
    default_backend trino_cluster_back
 
+frontend jenkins_front
+   bind *:{{ env "NOMAD_PORT_jenkins" }} ssl crt /ssl/ssl.pem
+
+   default_backend jenkins_back
+
+   acl jenkins-ssl-acl path_beg /.well-known/acme-challenge/
+   use_backend jenkins-ssl-backend if jenkins-ssl-acl
+
 frontend elasticsearch_front
    bind *:{{ env "NOMAD_PORT_elasticsearch" }} ssl crt /ssl/ssl.pem
 
@@ -121,6 +134,14 @@ frontend elasticsearch_front
 
    acl elasticsearch-ssl-acl path_beg /.well-known/acme-challenge/
    use_backend elasticsearch-ssl-backend if elasticsearch-ssl-acl
+
+frontend mg_front
+   bind *:{{ env "NOMAD_PORT_mg" }} ssl crt /ssl/ssl.pem
+
+   default_backend mg_back
+
+   acl mg-ssl-acl path_beg /.well-known/acme-challenge/
+   use_backend mg-ssl-backend if mg-ssl-acl
 
 #backend http_back
 #   balance roundrobin
@@ -152,12 +173,28 @@ backend trino_cluster_back
    balance roundrobin
    server-template trino_cluster 5 _trino-coordinator._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
+backend jenkins_back
+   balance roundrobin
+   server-template jenkins 5 _jenkins._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+   http-request set-header X-Forwarded-Port %[dst_port]
+   http-request add-header X-Forwarded-Proto https if { ssl_fc }
+
+backend jenkins-ssl-backend
+   server jenkins *:{{ env "NOMAD_PORT_jenkins" }}
+
 backend elasticsearch_back
    balance roundrobin
    server-template elasticsearch 5 _main-server-request._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
 
 backend elasticsearch-ssl-backend
    server elasticsearch *:{{ env "NOMAD_PORT_elasticsearch" }}
+
+backend mg_back
+   balance roundrobin
+   server-template mg 5 _mg._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
+backend mg-ssl-backend
+   server mg *:{{ env "NOMAD_PORT_mg" }}
 
 resolvers consul
    nameserver consul 127.0.0.1:8600
