@@ -17,7 +17,7 @@ job "jenkins" {
       driver = "docker"
 
       config {
-        image = "skyer9/jenkins-docker:0.0.4"
+        image = "skyer9/jenkins-docker:0.0.6"
         ports = ["jenkins_ui"]
 
         auth_soft_fail = true
