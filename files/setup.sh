@@ -1,8 +1,12 @@
 #!/bin/bash
 
-sudo yum update -y
-
-sudo yum install unzip tree jq curl wget -y
+if [  -n "$(uname -a | grep Ubuntu)" ]; then
+    sudo apt-get update && sudo apt-get upgrade
+    sudo apt-get -y install unzip tree jq curl wget
+else
+    yum update -y
+    sudo yum install unzip tree jq curl wget -y
+fi
 
 CONSULVERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/consul | jq -r '.current_version')
 CONSULDOWNLOAD=https://releases.hashicorp.com/consul/${CONSULVERSION}/consul_${CONSULVERSION}_linux_amd64.zip
