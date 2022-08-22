@@ -20,6 +20,7 @@ MY_AWS_SECRET_ACCESS_KEY=$4
 
 # Consul
 
+
 sed -i "s/RETRY_JOIN/$RETRY_JOIN/g" $FILES_DIR/consul.service
 sudo cp $FILES_DIR/consul-client.hcl $CONSUL_CONFIG_DIR/consul.hcl
 sudo cp $FILES_DIR/consul.service /etc/systemd/system/consul.service
