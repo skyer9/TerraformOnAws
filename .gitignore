@@ -29,5 +29,4 @@ override.tf.json
 # example: *tfplan*
 
 /.idea/*
-**/private.tf
 /tls/**
