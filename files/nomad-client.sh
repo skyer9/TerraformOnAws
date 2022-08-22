@@ -55,12 +55,14 @@ sudo systemctl start nomad.service
 # Docker
 
 if [  -n "$(uname -a | grep Ubuntu)" ]; then
-    sudo apt-get -y install docker
+    sudo sh ./install_docker.sh
+    sudo systemctl enable docker.service
+    sudo service docker start
 else
     sudo yum install docker -y
+    sudo systemctl enable docker.service
+    sudo service docker start
 fi
-sudo systemctl enable docker.service
-sudo service docker start
 
 # docker-credential-ecr-login
 
