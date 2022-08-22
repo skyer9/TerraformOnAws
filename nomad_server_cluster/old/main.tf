@@ -10,6 +10,28 @@ resource "aws_instance" "nomad_server" {
   count                  = var.server_count
   iam_instance_profile   = aws_iam_instance_profile.nomad_server.name
 
+//  connection {
+//    type        = "ssh"
+//    host        = self.public_ip
+//    user        = "ec2-user"
+//    private_key = file("~/.ssh/${var.key_name}")
+//  }
+//
+//  provisioner "file" {
+//    source      = "${path.module}/../tls/consul/consul-agent-ca.pem"
+//    destination = "~/consul-agent-ca.pem"
+//  }
+//
+//  provisioner "file" {
+//    source      = "${path.module}/../tls/consul/dc1-client-consul-0.pem"
+//    destination = "~/dc1-client-consul-0.pem"
+//  }
+//
+//  provisioner "file" {
+//    source      = "${path.module}/../tls/consul/dc1-client-consul-0-key.pem"
+//    destination = "~/dc1-client-consul-0-key.pem"
+//  }
+
   tags = {
     Name           = "${var.stack_name}-nomad_server-${count.index + 1}"
     ConsulAutoJoin = "auto-join"

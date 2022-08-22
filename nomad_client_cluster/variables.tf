@@ -25,13 +25,13 @@ variable "region" {
 variable "availability_zones" {
   description = "The AWS region AZs to deploy into."
   type        = list(string)
-  default     = ["ap-northeast-2a", "ap-northeast-2c"]    # , "ap-northeast-2b"
+  default     = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"]
 }
 
 variable "ami" {
   description = "The AMI to use, preferably built by the supplied Packer scripts."
   type        = string
-  default     = "ami-0a0de518b1fc4524c"
+  default     = "ami-0ea5eb4b05645aa8a"
 }
 
 variable "consul_server_instance_type" {
@@ -46,6 +46,12 @@ variable "server_instance_type" {
   default     = "t3a.micro"
 }
 
+variable "client_instance_type" {
+  description = "The EC2 instance type to launch for Nomad clients."
+  type        = string
+  default     = "t3a.small"
+}
+
 variable "consul_server_count" {
   description = "The number of Consul servers to run."
   type        = number
@@ -56,12 +62,6 @@ variable "server_count" {
   description = "The number of Nomad servers to run."
   type        = number
   default     = 1
-}
-
-variable "client_instance_type" {
-  description = "The EC2 instance type to launch for Nomad clients."
-  type        = string
-  default     = "t3a.small"
 }
 
 variable "client_count" {
@@ -88,8 +88,14 @@ variable "allowlist_ip" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "nomad_autoscaler_image" {
-  description = "The Docker image to use for the Nomad Autoscaler job."
+variable "access_key" {
+  description = "AWS_ACCESS_KEY_ID"
   type        = string
-  default     = "hashicorp/nomad-autoscaler:0.3.3"
+  default     = "XXXXXXXXXXXXXXX"
+}
+
+variable "secret_access_key" {
+  description = "AWS_SECRET_ACCESS_KEY"
+  type        = string
+  default     = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }

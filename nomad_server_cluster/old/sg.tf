@@ -19,7 +19,7 @@ resource "aws_security_group" "server_lb" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.my_ip
+    cidr_blocks = var.my_notebook_ip
   }
 
   # Nomad HTTP API & UI.
