@@ -9,3 +9,15 @@ variable "my_ip" {
   type        = list(string)
   default     = ["112.218.XXX.XXX/32"]      # 내 아이피
 }
+
+variable "access_key" {
+  description = "AWS_ACCESS_KEY_ID"
+  type        = string
+  default     = "XXXXXXXXXXXXXXX"
+}
+
+variable "secret_access_key" {
+  description = "AWS_SECRET_ACCESS_KEY"
+  type        = string
+  default     = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

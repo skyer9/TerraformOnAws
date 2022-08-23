@@ -87,15 +87,3 @@ variable "allowlist_ip" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
-
-variable "access_key" {
-  description = "AWS_ACCESS_KEY_ID"
-  type        = string
-  default     = "XXXXXXXXXXXXXXX"
-}
-
-variable "secret_access_key" {
-  description = "AWS_SECRET_ACCESS_KEY"
-  type        = string
-  default     = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-}
