@@ -5,22 +5,22 @@ job "hello_world" {
     count = 1
 
     network {
-      port "http" { to = 8080 }
+      port "http" { to = 80 }
     }
 
     task "hello_world" {
       driver = "docker"
 
       config {
-        image = "garystafford/hello-world"
+        image = "nginxdemos/hello"
         ports = ["http"]
 
         auth_soft_fail = true
       }
 
       resources {
-        cpu    = 1000
-        memory = 2048
+        cpu    = 500
+        memory = 128
       }
 
       service {
