@@ -10,12 +10,14 @@ variable "my_ip" {
   default     = ["112.218.XXX.XXX/32"]      # 내 아이피
 }
 
+# AWS ECR 접속용 KEY
 variable "access_key" {
   description = "AWS_ACCESS_KEY_ID"
   type        = string
   default     = "XXXXXXXXXXXXXXX"
 }
 
+# AWS ECR 접속용 KEY
 variable "secret_access_key" {
   description = "AWS_SECRET_ACCESS_KEY"
   type        = string
