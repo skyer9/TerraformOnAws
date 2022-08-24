@@ -1,0 +1,31 @@
+resource "aws_elb" "nomad_client_elb" {
+  name               = "${var.stack_name}-nomad-client-elb"
+  availability_zones = var.availability_zones
+  internal           = false
+  idle_timeout       = 360
+  security_groups    = [ aws_security_group.client_lb.id ]
+  instances          = aws_instance.nomad_client.*.id
+
+  lifecycle { create_before_destroy = true }
+
+  listener {
+    instance_port      = 2390              # 내부 포트
+    instance_protocol  = "http"
+    lb_port            = 2020              # 외부 포트
+    lb_protocol        = "http"
+  }
+
+#  access_logs {
+#    bucket  = "weblog"
+#    prefix  = "www.myexample.com-"
+#    enabled = true
+#  }
+
+  health_check {
+    healthy_threshold   = 8
+    unhealthy_threshold = 2
+    timeout             = 3
+    target              = "HTTP:2390/"
+    interval            = 30
+  }
+}

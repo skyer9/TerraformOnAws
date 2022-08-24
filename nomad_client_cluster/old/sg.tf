@@ -38,6 +38,14 @@ resource "aws_security_group" "client_lb" {
     cidr_blocks = var.my_ip
   }
 
+  # health check
+  ingress {
+    from_port   = 2390
+    to_port     = 2390
+    protocol    = "tcp"
+    cidr_blocks = var.allowlist_ip
+  }
+
   # Webapp HTTP.
   ingress {
     from_port   = 80
