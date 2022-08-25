@@ -48,7 +48,7 @@ scrape_configs:
   - job_name: prometheus
     metrics_path: /metrics
     consul_sd_configs:
-    - server: '127.0.0.1:8500'
+    - server: '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
       services: ['prometheus']
 
   - job_name: consul
@@ -57,7 +57,7 @@ scrape_configs:
       format: ['prometheus']
     static_configs:
       - targets:
-        - '127.0.0.1:8500'
+        - '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
 
   - job_name: jenkins
     # 1. install Jenkins plug-in Prometheus metrics
@@ -65,7 +65,7 @@ scrape_configs:
     # 인증을 활성화하려면 젠킨스 시스템설정에서 활성화 가능합니다.
     metrics_path: /prometheus/
     consul_sd_configs:
-    - server: '127.0.0.1:8500'
+    - server: '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
       services: ['jenkins']
 
   - job_name: nomad
@@ -83,12 +83,12 @@ scrape_configs:
   - job_name: ecr_hello_world
     metrics_path: /actuator/prometheus
     consul_sd_configs:
-    - server: '127.0.0.1:8500'
+    - server: '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
       services: ['ecr-hello-world']
 
   - job_name: haproxy_exporter
     consul_sd_configs:
-    - server: '127.0.0.1:8500'
+    - server: '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
       services: ['haproxy-exporter']
 EOH
 
