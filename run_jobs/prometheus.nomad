@@ -73,7 +73,7 @@ scrape_configs:
     params:
       format: ['prometheus']
     consul_sd_configs:
-    - server: '127.0.0.1:8500'
+    - server: '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
       services: ['nomad','nomad-client']
     relabel_configs:
       - source_labels: ['__meta_consul_tags']
