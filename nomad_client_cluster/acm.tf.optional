@@ -1,0 +1,3 @@
+data "aws_acm_certificate" "cert_nomad_client_skyer9_pe_kr" {
+  domain = "nomad-client.skyer9.pe.kr"
+}

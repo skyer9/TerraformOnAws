@@ -13,6 +13,8 @@ resource "aws_elb" "nomad_client_elb" {
     instance_protocol  = "http"
     lb_port            = 2020              # 외부 포트
     lb_protocol        = "http"
+    # lb_protocol        = "https"
+    # ssl_certificate_id = data.aws_acm_certificate.cert_nomad_client_skyer9_pe_kr.arn
   }
 
 #  access_logs {
